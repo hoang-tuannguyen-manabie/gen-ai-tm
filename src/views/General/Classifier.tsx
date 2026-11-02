@@ -9,6 +9,7 @@ import { useVariant } from '../../util/variant';
 import Fab from '@mui/material/Fab';
 import { theme } from '@genai-fi/base';
 import SettingsDialog from '../SettingsDialog/SettingsDialog';
+import MascotGuide from '../../components/MascotGuide/MascotGuide';
 import { useSetAtom } from 'jotai';
 import { feedbackAtom } from '@genaitm/state';
 
@@ -74,6 +75,7 @@ export default function ImageClassifier() {
                 onSaveRemind={doSaveRemind}
             />
             <SettingsDialog />
+            <MascotGuide />
             <nav
                 className={visited < 1 ? style.stepButton : style.stepButtonHidden}
                 aria-label={t('stepper.aria.step')}

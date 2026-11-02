@@ -12,6 +12,7 @@ import SchoolIcon from '@mui/icons-material/School';
 import LinkButton from './LinkButton';
 import { LANGS } from '@genaitm/components/AppBar/AppBar';
 import RecordVoiceOverIcon from '@mui/icons-material/RecordVoiceOver';
+import MascotGuide from '@genaitm/components/MascotGuide/MascotGuide';
 
 export default function Home() {
     const { t } = useTranslation('image_adv');
@@ -99,6 +100,7 @@ export default function Home() {
                     appName="tm"
                     tag={gitInfo.gitTag || 'notag'}
                 />
+                <MascotGuide />
             </main>
         </ThemeProvider>
     );
