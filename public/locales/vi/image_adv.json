@@ -1,0 +1,495 @@
+{
+    "app": {
+        "title": "Teachable Machine",
+        "about": "Giới thiệu",
+        "save": "Lưu",
+        "load": "Mở",
+        "language": "Ngôn ngữ",
+        "reminder": "Hãy nhớ lưu bộ phân loại của bạn.",
+        "models": {
+            "image": "Hình ảnh",
+            "pose": "Tư thế",
+            "hand": "Cử chỉ bàn tay",
+            "speech": "Giọng nói"
+        },
+        "github": "GitHub",
+        "teachingMaterials": "Tài liệu giảng dạy",
+        "selectModel": "Bạn muốn phân loại nội dung gì?",
+        "enableUSB": "Sử dụng thiết bị USB",
+        "subtitle": "Tạo bộ phân loại với dữ liệu của riêng bạn, không cần lập trình"
+    },
+    "load": {
+        "title": "Mở bộ phân loại",
+        "code": "Nhập mã chia sẻ",
+        "actions": {
+            "openFile": "Mở tệp",
+            "openCode": "Dùng mã",
+            "cancel": "Hủy"
+        }
+    },
+    "save": {
+        "title": "Lưu bộ phân loại",
+        "noModel": "Trước tiên bạn cần tạo một bộ phân loại.",
+        "message": "Tải nội dung bộ phân loại của bạn về một tệp.",
+        "saveSamples": "Lưu mẫu",
+        "saveClassifier": "Lưu bộ phân loại",
+        "saveBehaviours": "Lưu hành vi",
+        "name": "Tên",
+        "actions": {
+            "save": "Lưu",
+            "cancel": "Hủy"
+        }
+    },
+    "alignment": {
+        "aria": {
+            "left": "căn trái",
+            "center": "căn giữa",
+            "right": "căn phải",
+            "align": "căn lề văn bản"
+        }
+    },
+    "fontsize": {
+        "aria": {
+            "title": "thay đổi cỡ chữ",
+            "increase": "tăng cỡ",
+            "decrease": "giảm cỡ"
+        }
+    },
+    "trainingdata": {
+        "actions": {
+            "addClass": "Thêm lớp",
+            "webcam": "Webcam",
+            "audio": "Mic",
+            "upload": "Tải lên",
+            "datasets": "Bộ dữ liệu",
+            "deleteClass": "Xóa lớp",
+            "disableClass": "Tắt lớp",
+            "enableClass": "Bật lớp",
+            "removeAll": "Xóa tất cả mẫu",
+            "capture": "Giữ để chụp",
+            "fileCapture": "Trích xuất",
+            "record": "Ghi âm",
+            "collaborate": "Cộng tác",
+            "cancel": "Hủy",
+            "use": "Dùng ({{count}})",
+            "displayMore": "Hiển thị {{count}} hình ảnh"
+        },
+        "labels": {
+            "title": "Dữ liệu huấn luyện",
+            "addSamples": "Thêm mẫu hình ảnh",
+            "imageSamples": "{{count}} mẫu hình ảnh",
+            "addAudioSamples": "Thêm mẫu âm thanh",
+            "audioSamples": "{{count}} mẫu âm thanh",
+            "class": "Lớp",
+            "noiseClass": "Tiếng ồn xung quanh",
+            "wait": "Đang chụp...",
+            "stop": "Dừng",
+            "dropFiles": "hoặc kéo thả hình ảnh từ trang web hoặc tệp vào đây",
+            "dropAudioFiles": "hoặc kéo thả tệp âm thanh từ trang web hoặc tệp vào đây",
+            "needsMore": "Cần thêm mẫu",
+            "dropError": "Chỉ có thể thả tệp hình ảnh vào đây",
+            "dropAudioError": "Chỉ có thể thả tệp âm thanh vào đây",
+            "emptyClass": "Lớp này chưa có dữ liệu.",
+            "qrMessage": "Bạn có thể sử dụng điện thoại hoặc máy tính bảng để thêm ảnh. Nhấp vào mã QR để phóng to.",
+            "disabled": "ĐÃ TẮT",
+            "selectDataset": "Chọn bộ dữ liệu",
+            "selectTestData": "Chọn một hình ảnh",
+            "searchDataset": "Tìm kiếm bộ dữ liệu",
+            "images": "hình ảnh",
+            "selected": "đã chọn",
+            "loading": "Đang tải...",
+            "loadingDataset": "Đang tải hình ảnh {{loaded}}/{{total}}...",
+            "datasetLoadError": "Không thể tải hình ảnh từ bộ dữ liệu. Vui lòng thử lại."
+        },
+        "aria": {
+            "sample": "mẫu đã tải lên",
+            "delete": "xóa mẫu",
+            "more": "tùy chọn khác",
+            "close": "Đóng",
+            "classCard": "Dữ liệu huấn luyện cho {{name}}"
+        }
+    },
+    "heatmap": {
+        "title": "Giải thích",
+        "colorScaleHelp": "Thang màu hiển thị các phần của hình ảnh mà mô hình tập trung vào. Đỏ = mức độ quan trọng cao, Xanh lam = mức độ quan trọng thấp.",
+        "noPoseDetected": "Không phát hiện tư thế",
+        "high": "Cao",
+        "low": "Thấp"
+    },
+    "underTheHood": {
+        "title": "Bên trong mô hình",
+        "visualization": "Bản đồ nhiệt",
+        "statistics": "Thống kê mô hình",
+        "transferLearning": "Học chuyển giao (Transfer Learning)",
+        "on": "Bật",
+        "off": "Tắt"
+    },
+    "charts": {
+        "accuracyPerClass": "Độ chính xác theo từng lớp",
+        "accuracyPerClassHelp": "Hiển thị tần suất mô hình dự đoán chính xác từng lớp trên các mẫu kiểm thử. 1.00 nghĩa là tất cả các mẫu kiểm thử cho lớp đó đều đúng.",
+        "confusionMatrix": "Ma trận nhầm lẫn (Confusion Matrix)",
+        "confusionMatrixHelp": "Các hàng là lớp thực tế và các cột là dự đoán của mô hình. Các giá trị trên đường chéo là chính xác, các giá trị khác là nhầm lẫn.",
+        "accuracyPerEpoch": "Độ chính xác theo từng Epoch",
+        "accuracyPerEpochHelp": "Hiển thị sự thay đổi độ chính xác dự đoán trong quá trình huấn luyện. Độ chính xác dao động từ 0 đến 1, trong đó 1 là tốt nhất. Độ chính xác kiểm thử sử dụng các mẫu từ tập kiểm thử, không phải từ tập huấn luyện dùng để cập nhật mô hình.",
+        "lossPerEpoch": "Hàm mất mát (Loss) theo từng Epoch",
+        "lossPerEpochHelp": "Hiển thị sai số của mô hình trong quá trình huấn luyện. Loss bắt đầu từ 0 và có thể cao hơn, trong đó càng thấp càng tốt. Loss kiểm thử sử dụng các mẫu từ tập kiểm thử, không phải từ tập huấn luyện dùng để cập nhật mô hình.",
+        "transferLearningMatrix": "Ma trận học chuyển giao",
+        "transferLearningMatrixHelp": "Các hồ sơ khái niệm ImageNet ở cấp độ lớp (từ bộ phân loại) và cách đầu vào hiện tại khớp với chúng.",
+        "transferLearningGraph": "Biểu đồ học chuyển giao",
+        "transferLearningGraphHelp": "Sơ đồ này giải thích cách mô hình liên kết hình ảnh hiện tại của bạn với các lớp đã học trước đó. Bên trái: đầu vào hiện tại và các lớp ứng viên của bạn. Bên phải: các lớp từ mô hình đã huấn luyện trước. Đường càng dày thể hiện mức độ tương đồng càng mạnh.",
+        "transferLearningFlow": "Luồng học chuyển giao",
+        "transferLearningUserClass": "Lớp của người dùng",
+        "transferLearningCurrentInput": "Đầu vào hiện tại",
+        "transferLearningSimilarity": "Độ tương đồng",
+        "transferLearningSimilarityHelp": "Độ tương đồng Cosine so sánh đầu vào hiện tại với từng lớp của người dùng dựa trên tất cả 1000 xác suất ImageNet. Giá trị dao động từ 0 đến 1, với 1 là tương đồng nhất.",
+        "transferLearningSamples": "{{count}} mẫu",
+        "transferLearningStages": "Các giai đoạn học chuyển giao",
+        "transferLearningStageConcepts": "Khái niệm",
+        "transferLearningStageConnections": "Kết nối",
+        "transferLearningStageAdvanced": "Nâng cao",
+        "pretrainedConceptsTitle": "Những gì mô hình tiền huấn luyện nhận diện",
+        "pretrainedConceptsHelp": "Đây là các khái niệm ImageNet quen thuộc mà mô hình tiền huấn luyện khớp với đầu vào hiện tại. % càng cao nghĩa là mức độ khớp càng mạnh.",
+        "pretrainedModelLayers": "Mô hình tiền huấn luyện",
+        "pretrainedModelSubtitle": "Nhận diện các khái niệm ImageNet",
+        "pretrainedSampleAlt": "mẫu {{index}} của {{label}}",
+        "class": "Lớp",
+        "accuracy": "Độ chính xác",
+        "testSamples": "Số mẫu kiểm thử",
+        "prediction": "Dự đoán",
+        "actual": "Thực tế",
+        "predicted": "Dự đoán",
+        "count": "Số lượng",
+        "acc": "độ cx",
+        "testAcc": "độ cx k.thử",
+        "loss": "Mất mát",
+        "testLoss": "mất mát k.thử",
+        "epochs": "Epochs",
+        "epoch": "Epoch",
+        "neuronExplanationTitle": "Giải thích nơ-ron",
+        "neuronExplanationHelp": "Các nơ-ron hàng đầu ở lớp áp chót định hướng dự đoán hiện tại. Mỗi nơ-ron là một bộ phát hiện đặc trưng đã học — ảnh thu nhỏ hiển thị ảnh huấn luyện kích hoạt nơ-ron đó mạnh nhất.\n\nThanh trọng số (xanh dương): mức độ ảnh hưởng của nơ-ron này lên lớp được dự đoán. Trọng số dương (+) nghĩa là nơ-ron đẩy mô hình về lớp này — kích hoạt càng cao thì dự đoán càng tự tin. Trọng số âm (−) nghĩa là nơ-ron ức chế lớp này — kích hoạt cao ở đây thực tế làm giảm độ tự tin.\n\nThanh kích hoạt (cam): mức độ ảnh hiện tại kích hoạt nơ-ron này. Vạch dấu (▏) là giá trị trung bình của lớp từ quá trình huấn luyện. Màu xanh lá (+) nghĩa là ảnh này kích hoạt nơ-ron nhiều hơn mẫu thông thường của lớp; màu đỏ (−) nghĩa là ít hơn. Giá trị kích hoạt không giới hạn — phạm vi thông thường 0–3+.",
+        "neuronExplanationDesc": "Các nơ-ron hàng đầu thúc đẩy dự đoán \"{{label}}\". Thanh hiển thị mức kích hoạt so với trung bình lớp ( ▏).",
+        "neuronCrossClass": "So sánh giữa các lớp (kích hoạt trung bình)",
+        "neuronCrossClassHelp": "Đối với mỗi nơ-ron hàng đầu, mục này hiển thị mức kích hoạt trung bình trên tất cả các mẫu huấn luyện của từng lớp. Giá trị cao hơn cho thấy lớp đó phụ thuộc nhiều vào đặc trưng này. So sánh các lớp cạnh nhau cho thấy nơ-ron nào được dùng chung và nơ-ron nào đặc trưng riêng cho từng lớp — một nơ-ron có giá trị trung bình cao cho một lớp và gần bằng 0 cho các lớp khác là một đặc trưng phân biệt đáng tin cậy. Giá trị không bị giới hạn — thông thường từ 0–3+.",
+        "neuronGroupSupporting": "▲ Các nơ-ron hỗ trợ (trọng số +)",
+        "neuronGroupSupportingDesc": "Khi các nơ-ron này kích hoạt mạnh, độ tin cậy vào \"{{label}}\" sẽ tăng lên.",
+        "neuronGroupSuppressing": "▼ Các nơ-ron ức chế (trọng số −)",
+        "neuronGroupSuppressingDesc": "Đây là đặc trưng của các lớp khác. Mức kích hoạt thấp của chúng trên hình ảnh này là bằng chứng ủng hộ \"{{label}}\".",
+        "neuronTopN": "Hiển thị {{n}} nơ-ron hàng đầu",
+        "transferLearningBarChart": "Độ tương đồng của đầu vào kiểm thử",
+        "transferLearningBarChartHelp": "Mô hình tiền huấn luyện mô tả đầu vào hiện tại và từng lớp đã huấn luyện dưới dạng một danh sách dài các điểm số khái niệm ImageNet. Độ tương đồng Cosine so sánh dạng của hai danh sách đó. Nếu các điểm cao và thấp thẳng hàng, độ tương đồng sẽ cao. Giá trị dao động từ 0% đến 100%. Thanh càng cao nghĩa là đầu vào càng giống lớp đó."
+    },
+    "training": {
+        "actions": {
+            "train": "Huấn luyện bộ phân loại"
+        },
+        "labels": {
+            "title": "Huấn luyện",
+            "addMore": "Trước tiên hãy thêm thêm mẫu hoặc lớp",
+            "needsTraining": "Bộ phân loại cần được huấn luyện",
+            "advanced": "Nâng cao",
+            "epochs": "Epochs",
+            "learningRate": "Tốc độ học (Learning Rate)",
+            "batchSize": "Kích thước Batch (Batch Size)",
+            "loading": "Đang tải bộ phân loại",
+            "prepairing": "Đang chuẩn bị ví dụ...",
+            "training": "Đang huấn luyện bộ phân loại",
+            "complete": "Huấn luyện hoàn tất"
+        },
+        "tooltips": {
+            "epochs": "Số lần mỗi mẫu được sử dụng để huấn luyện.",
+            "learningRate": "Chỉ nên điều chỉnh nhỏ tham số này, giá trị nên nhỏ hơn 0.1.",
+            "batchSize": "Có ảnh hưởng tối thiểu đến quá trình huấn luyện. Đó là số mẫu được sử dụng trong mỗi lần lặp lại của quá trình huấn luyện."
+        }
+    },
+    "input": {
+        "labels": {
+            "title": "Đầu vào",
+            "webcam": "Webcam",
+            "audio": "Mic",
+            "file": "Tệp",
+            "device": "Thiết bị",
+            "dataset": "Bộ dữ liệu",
+            "switchOn": "Bật",
+            "switchOff": "Tắt",
+            "upload": "Tải lên hoặc kéo thả tệp vào đây"
+        },
+        "aria": {
+            "switch": "Bật nguồn đầu vào"
+        }
+    },
+    "model": {
+        "actions": {
+            "export": "Xuất cho công cụ bên ngoài",
+            "clone": "Chia sẻ bản sao",
+            "bm": "Sử dụng với Breakable Machine"
+        },
+        "labels": {
+            "title": "Bộ phân loại",
+            "mustTrain": "Bạn phải huấn luyện bộ phân loại trước",
+            "mustInput": "Bạn phải cung cấp đầu vào để sử dụng bộ phân loại",
+            "failedTensorflow": "Thiết bị hoặc trình duyệt của bạn không thể chạy bộ phân loại của chúng tôi"
+        },
+        "aria": {
+            "more": "tùy chọn khác"
+        }
+    },
+    "output": {
+        "labels": {
+            "title": "Đầu ra",
+            "deploy": "Triển khai",
+            "serialdevice": "Thiết bị USB",
+            "connect": "Kết nối",
+            "disconnect": "Ngắt kết nối",
+            "connectSuccess": "Đã kết nối với thiết bị USB",
+            "connectError": "Không thể kết nối với thiết bị USB. Vui lòng đảm bảo thiết bị không bị ứng dụng khác chiếm dụng và thử lại."
+        },
+        "aria": {
+            "volume": "Âm lượng",
+            "image": "đầu ra lớp {{index}}",
+            "display": "kết quả hiển thị cho lớp {{index}}",
+            "expand": "phóng to cửa sổ",
+            "serialdevice": "Thiết bị nối tiếp (Serial)"
+        }
+    },
+    "behaviours": {
+        "actions": {
+            "upload": "Tải lên",
+            "dataset": "Bộ dữ liệu",
+            "delete": "Xóa",
+            "record": "Ghi âm",
+            "stop": "Dừng"
+        },
+        "labels": {
+            "title": "Hành vi",
+            "message": "Thông điệp",
+            "link": "Liên kết",
+            "linkError": "Liên kết đó không được hỗ trợ",
+            "embedInfo": "Hiển thị video và hình ảnh từ một liên kết. Chỉ một số liên kết hoạt động, ví dụ YouTube, Vimeo, SoundCloud, tệp video, tệp âm thanh hoặc hình ảnh.<br/><br/>Xem tài liệu <l>react-player</l> để biết thêm chi tiết.",
+            "voiceRecording": "Ghi âm giọng nói",
+            "dropError": "Chỉ có thể kéo thả hình ảnh hoặc âm thanh vào đây",
+            "loop": "Lặp lại"
+        },
+        "aria": {
+            "message": "Văn bản đầu ra",
+            "image": "hành vi hình ảnh",
+            "sound": "hành vi âm thanh",
+            "text": "hành vi văn bản",
+            "embed": "hành vi nhúng liên kết",
+            "imageOutput": "Hình ảnh đã tải lên",
+            "noImage": "Khung chứa hình ảnh",
+            "stop": "dừng",
+            "play": "phát",
+            "behaviourCard": "Hành vi cho {{name}}",
+            "loop": "Lặp lại"
+        }
+    },
+    "stepper": {
+        "actions": {
+            "next": "Tiếp theo"
+        },
+        "aria": {
+            "step": "các bước tác vụ"
+        }
+    },
+    "webcam": {
+        "aria": {
+            "video": "video webcam trực tiếp",
+            "flip": "Chuyển sang máy ảnh khác"
+        }
+    },
+    "widget": {
+        "aria": {
+            "editTitle": "chỉnh sửa tiêu đề",
+            "editTitleInput": "hộp chỉnh sửa {{value}}"
+        },
+        "labels": {
+            "titlePlaceholder": "Tên"
+        }
+    },
+    "fontcolor": {
+        "aria": {
+            "title": "chọn màu chữ"
+        }
+    },
+    "share": {
+        "actions": {
+            "close": "Đóng",
+            "share": "Chia sẻ",
+            "stopShare": "Dừng chia sẻ"
+        },
+        "labels": {
+            "title": "Chia sẻ",
+            "includeSamples": "Bao gồm các hình ảnh mẫu",
+            "codeInstructions": "Cho phép người khác mở bản sao bộ phân loại của bạn bằng mã bên dưới.",
+            "linkInstructions": "Sao chép liên kết để sử dụng bộ phân loại trong các ứng dụng khác như <scratchLink>Scratch</scratchLink>. Liên kết sẽ chỉ hoạt động nếu bạn giữ tab trình duyệt này mở, hoặc nếu bạn lưu dự án và mở lại sau."
+        }
+    },
+    "datasets": {
+        "categories": {
+            "animals": "Động vật",
+            "nature": "Thiên nhiên",
+            "colors": "Màu sắc",
+            "fruits": "Trái cây",
+            "human": "Con người",
+            "studyTools": "Dụng cụ học tập",
+            "recyclingMaterials": "Vật liệu tái chế",
+            "transportation": "Phương tiện giao thông"
+        },
+        "cats": {
+            "name": "Mèo",
+            "description": "Bộ sưu tập hình ảnh mèo"
+        },
+        "dogs": {
+            "name": "Chó",
+            "description": "Bộ sưu tập hình ảnh chó"
+        },
+        "birds": {
+            "name": "Chim",
+            "description": "Bộ sưu tập hình ảnh chim"
+        },
+        "flowers": {
+            "name": "Hoa",
+            "description": "Bộ sưu tập hình ảnh hoa"
+        },
+        "trees": {
+            "name": "Cây cối",
+            "description": "Bộ sưu tập hình ảnh cây cối"
+        },
+        "white": {
+            "name": "Trắng",
+            "description": "Bộ sưu tập hình ảnh màu trắng"
+        },
+        "black": {
+            "name": "Đen",
+            "description": "Bộ sưu tập hình ảnh màu đen"
+        },
+        "gray": {
+            "name": "Xám",
+            "description": "Bộ sưu tập hình ảnh màu xám"
+        },
+        "blue": {
+            "name": "Xanh lam",
+            "description": "Bộ sưu tập hình ảnh màu xanh lam"
+        },
+        "green": {
+            "name": "Xanh lá",
+            "description": "Bộ sưu tập hình ảnh màu xanh lá"
+        },
+        "red": {
+            "name": "Đỏ",
+            "description": "Bộ sưu tập hình ảnh màu đỏ"
+        },
+        "pink": {
+            "name": "Hồng",
+            "description": "Bộ sưu tập hình ảnh màu hồng"
+        },
+        "orange": {
+            "name": "Cam",
+            "description": "Bộ sưu tập hình ảnh màu cam"
+        },
+        "purple": {
+            "name": "Tím",
+            "description": "Bộ sưu tập hình ảnh màu tím"
+        },
+        "yellow": {
+            "name": "Vàng",
+            "description": "Bộ sưu tập hình ảnh màu vàng"
+        },
+        "apple": {
+            "name": "Táo",
+            "description": "Bộ sưu tập hình ảnh quả táo"
+        },
+        "pear": {
+            "name": "Lê",
+            "description": "Bộ sưu tập hình ảnh quả lê"
+        },
+        "orangeFruit": {
+            "name": "Cam",
+            "description": "Bộ sưu tập hình ảnh quả cam"
+        },
+        "men": {
+            "name": "Nam giới",
+            "description": "Bộ sưu tập hình ảnh nam giới"
+        },
+        "women": {
+            "name": "Phụ nữ",
+            "description": "Bộ sưu tập hình ảnh phụ nữ"
+        },
+        "handPalm": {
+            "name": "Lòng bàn tay",
+            "description": "Bộ sưu tập hình ảnh lòng bàn tay"
+        },
+        "pencils": {
+            "name": "Bút chì",
+            "description": "Bộ sưu tập hình ảnh bút chì"
+        },
+        "pens": {
+            "name": "Bút mực",
+            "description": "Bộ sưu tập hình ảnh bút mực"
+        },
+        "humanPose": {
+            "name": "Tư thế người",
+            "description": "Bộ sưu tập hình ảnh tư thế người"
+        },
+        "erasers": {
+            "name": "Cục tẩy",
+            "description": "Bộ sưu tập hình ảnh cục tẩy"
+        },
+        "batteries": {
+            "name": "Pin",
+            "description": "Bộ sưu tập hình ảnh pin"
+        },
+        "cardboard": {
+            "name": "Bìa carton",
+            "description": "Bộ sưu tập hình ảnh bìa carton"
+        },
+        "glass": {
+            "name": "Thủy tinh",
+            "description": "Bộ sưu tập hình ảnh thủy tinh"
+        },
+        "paper": {
+            "name": "Giấy",
+            "description": "Bộ sưu tập hình ảnh giấy"
+        },
+        "plastics": {
+            "name": "Nhựa",
+            "description": "Bộ sưu tập hình ảnh đồ nhựa"
+        },
+        "airplanes": {
+            "name": "Máy bay",
+            "description": "Bộ sưu tập hình ảnh máy bay"
+        },
+        "buses": {
+            "name": "Xe buýt",
+            "description": "Bộ sưu tập hình ảnh xe buýt"
+        },
+        "bicycles": {
+            "name": "Xe đạp",
+            "description": "Bộ sưu tập hình ảnh xe đạp"
+        },
+        "cars": {
+            "name": "Ô tô",
+            "description": "Bộ sưu tập hình ảnh ô tô"
+        },
+        "mopeds": {
+            "name": "Xe máy nhỏ",
+            "description": "Bộ sưu tập hình ảnh xe máy nhỏ"
+        },
+        "motorcycles": {
+            "name": "Xe mô tô",
+            "description": "Bộ sưu tập hình ảnh xe mô tô"
+        },
+        "pedestrians": {
+            "name": "Người đi bộ",
+            "description": "Bộ sưu tập hình ảnh người đi bộ"
+        },
+        "ships": {
+            "name": "Tàu thủy",
+            "description": "Bộ sưu tập hình ảnh tàu thủy"
+        },
+        "trains": {
+            "name": "Tàu hỏa",
+            "description": "Bộ sưu tập hình ảnh tàu hỏa"
+        }
+    }
+}

@@ -17,7 +17,7 @@ export default defineConfig(({ mode }) => ({
         environment: 'jsdom',
         setupFiles: './src/setupTests.ts',
         clearMocks: true,
-        execArgv: ['--no-webstorage'],
+        execArgv: process.version.startsWith('v22') ? ['--no-webstorage'] : [],
         coverage: {
             provider: 'v8',
             reporter: ['cobertura', 'html'],

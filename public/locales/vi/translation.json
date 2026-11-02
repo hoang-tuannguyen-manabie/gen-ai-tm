@@ -1,0 +1,172 @@
+{
+    "deploy": {
+        "actions": {
+            "copy": "Sao chép",
+            "close": "Đóng"
+        },
+        "labels": {
+            "notFound": "Không tìm thấy bộ phân loại.",
+            "dropHere": "Thả hình ảnh vào đây",
+            "errorInfo": "Trang này chỉ hoạt động nếu bạn vẫn mở bộ phân loại trong một tab trình duyệt. Cũng có thể có các hạn chế bảo mật ngăn chặn việc tìm thấy nó.",
+            "share": "Chia sẻ ứng dụng sang các thiết bị khác",
+            "qrExpand": "Nhấp vào mã QR để phóng to.",
+            "noWebcam": "Cần có quyền truy cập máy ảnh để chia sẻ bộ phân loại.",
+            "switch": "Bật nguồn đầu vào"
+        }
+    },
+    "loader": {
+        "messages": {
+            "getIceConfig": "Đang lấy cấu hình mạng",
+            "cameraPermission": "Để cho phép kết nối trực tiếp giữa các thiết bị bạn cần cấp quyền truy cập tạm thời vào máy ảnh.",
+            "connecting": "Đang thử kết nối...",
+            "signaling": "Đang tìm kiếm các thiết bị khác",
+            "disconnected": "Đã ngắt kết nối với thiết bị khác",
+            "retry": "Đang thử kết nối lại...",
+            "content_load": "Đang tải nội dung",
+            "content_download": "Đang tải xuống nội dung",
+            "ready": "Kết nối đã sẵn sàng",
+            "content_none": "Nội dung đã sẵn sàng",
+            "wifiNetwork": "Dữ liệu của bạn đang được truyền qua Internet vì bạn không dùng chung mạng Wi-Fi.",
+            "permNetwork": "Dữ liệu của bạn đang được truyền qua Internet vì bạn chưa cấp quyền truy cập máy ảnh.",
+            "quality0": "Đang kiểm tra...",
+            "quality1": "Kết nối kém",
+            "quality2": "Đã kết nối",
+            "quality3": "Đã kết nối",
+            "failed": "Không có kết nối"
+        },
+        "errors": {
+            "unknown": "Đã xảy ra sự cố kết nối",
+            "id-in-use": "Mã này đã có người sử dụng",
+            "peer-not-found": "Không tìm thấy mã này",
+            "missing-ice": "Thiếu cấu hình mạng",
+            "no-signaling": "Máy chủ không phản hồi",
+            "bad-browser": "Thiết bị của bạn không hỗ trợ ứng dụng này",
+            "unknownContent": "Đã xảy ra sự cố với nội dung đa phương tiện",
+            "load": "Không thể tải nội dung đa phương tiện",
+            "download": "Không thể tải xuống nội dung đa phương tiện"
+        },
+        "titles": {
+            "iceConfig": "Cấu hình",
+            "permission": "Quyền truy cập",
+            "connecting": "Kết nối",
+            "error": "Sự cố",
+            "contentLoad": "Nội dung đa phương tiện",
+            "networkType": "Thông tin"
+        },
+        "actions": {
+            "close": "Đóng"
+        }
+    },
+    "testInput": {
+        "title": "Đầu vào"
+    },
+    "collect": {
+        "samplePrompt": "Chụp ảnh hoặc tải hình ảnh lên đây.",
+        "actions": {
+            "upload": "Tải lên"
+        },
+        "sampleCount": "{{count}} mẫu",
+        "connecting": "Đang kết nối...",
+        "disconnected": "Đã ngắt kết nối",
+        "failed": "Thất bại",
+        "failedMessage": "Không thể truy cập bộ phân loại này từ thiết bị của bạn",
+        "dropError": "Chỉ có thể thả tệp hình ảnh vào đây",
+        "relayWarning": "Dữ liệu của bạn đang được truyền qua máy chủ của chúng tôi. Bạn có thể muốn sử dụng kết nối Wi-Fi khác để tránh điều này."
+    },
+    "about": {
+        "back": "Quay lại",
+        "title": "Generation AI",
+        "privacyTitle": "Thông báo quyền riêng tư",
+        "privacy": [
+            "Chào mừng bạn đến với Thông báo quyền riêng tư của chúng tôi, nhằm cung cấp thông tin về cách chúng tôi xử lý dữ liệu cá nhân của bạn theo Quy định chung về bảo vệ dữ liệu (GDPR) khi bạn sử dụng trang web chứa công cụ GenAI Teachable Machine.",
+            "Để làm rõ nội dung, chúng tôi xin định nghĩa một số thuật ngữ từ GDPR. \"Bên kiểm soát\" (controller) là chúng tôi, người quyết định cách thức và lý do sử dụng dữ liệu cá nhân của bạn, đồng thời chịu trách nhiệm bảo vệ dữ liệu đó. \"Dữ liệu cá nhân\" bao gồm bất kỳ thông tin nào có thể nhận dạng bạn trực tiếp hoặc gián tiếp, chẳng hạn như địa chỉ IP. \"Xử lý\" bao gồm tất cả các hành động được thực hiện với dữ liệu của bạn, chẳng hạn như thu thập, lưu trữ, sử dụng và xóa.",
+            "Việc đọc thông báo này rất quan trọng để hiểu chúng tôi thu thập dữ liệu gì từ bạn, tại sao thu thập, chúng tôi làm gì với dữ liệu đó và bạn có những quyền gì đối với dữ liệu của mình.",
+            "Nếu bạn có bất kỳ câu hỏi nào về thông báo này, vui lòng liên hệ với bên kiểm soát:",
+            "**Dr. Nicolas Pope**,",
+            "**Địa chỉ bưu chính:** University of Eastern Finland, Länsikatu 15, 80110 Joensuu, Finland.",
+            "**Email:** nicolas.pope@uef.fi",
+            "**Điện thoại:** +358 505 288 449.",
+            "### 1. Hoạt động xử lý dữ liệu:",
+            "Chúng tôi ghi nhật ký các địa chỉ IP.",
+            "Tuy nhiên, chúng tôi không sử dụng cookie để theo dõi hoặc phân tích; thay vào đó, chúng tôi chỉ cung cấp nội dung dựa trên những gì bạn nhập vào.",
+            "### 2. Mục đích xử lý:",
+            "Việc ghi nhận địa chỉ IP giúp duy trì tính toàn vẹn và bảo mật của trang web bằng cách phát hiện và ngăn chặn các hoạt động độc hại.",
+            "### 3. Cơ sở pháp lý cho việc xử lý:",
+            "Chủ yếu, chúng tôi xử lý địa chỉ IP vì lý do bảo mật, dựa trên lợi ích hợp pháp của chúng tôi trong việc bảo vệ trang web và dữ liệu theo Điều 6(1)(f) GDPR. Ngoài ra, chúng tôi cũng có thể xử lý dữ liệu dựa trên sự đồng ý của bạn theo Điều 6(1)(a) GDPR nếu bạn muốn thực hiện quyền truy cập địa chỉ IP đã ghi. Chúng tôi cũng có thể xử lý dữ liệu nếu nhận được yêu cầu từ tòa án có thẩm quyền theo Điều 6(1)(c).",
+            "### 4. Lợi ích hợp pháp được theo đuổi:",
+            "Mục tiêu của chúng tôi là duy trì hoạt động của trang web bằng cách đảm bảo tính toàn vẹn, bảo mật và ngăn ngừa hành vi lạm dụng.",
+            "### 5. Bảo mật:",
+            "Chúng tôi áp dụng các biện pháp bảo mật để bảo vệ địa chỉ IP của bạn khỏi việc truy cập hoặc phá hoại trái phép. Địa chỉ IP của bạn được mã hóa trong mọi lần truyền dữ liệu tiếp theo.",
+            "### 6. Người nhận dữ liệu:",
+            "Chỉ nhân viên trang web được ủy quyền mới có thể truy cập địa chỉ IP của bạn cho mục đích bảo mật và bảo trì.",
+            "### 7. Truyền dữ liệu:",
+            "Địa chỉ IP có thể được chuyển đến các máy chủ của Microsoft, nhưng chúng tôi đảm bảo tuân thủ GDPR về bảo vệ dữ liệu.",
+            "### 8. Giới hạn lưu trữ:",
+            "Chúng tôi chỉ lưu giữ địa chỉ IP trong thời gian cần thiết, thông thường tối đa 7 ngày, trừ khi pháp luật có yêu cầu khác.",
+            "### 9. Quyền của bạn:",
+            "Theo GDPR, bạn có các quyền bao gồm:",
+            "* Quyền được thông báo: Ngoài việc được thông báo về mục đích xử lý, thời hạn lưu giữ và đối tượng được chia sẻ dữ liệu, bạn có quyền được biết cách chúng tôi thu thập dữ liệu. Chúng tôi ghi lại địa chỉ IP khi bạn truy cập trang web.",
+            "* Quyền truy cập: bạn có thể yêu cầu một bản sao của địa chỉ IP đã ghi và dữ liệu nhật ký liên quan.",
+            "* Quyền chỉnh sửa: nếu dữ liệu đã ghi không chính xác hoặc không đầy đủ, bạn có thể yêu cầu chỉnh sửa mặc dù địa chỉ IP thường không phải là thông tin có thể chỉnh sửa như các dữ liệu khác.",
+            "* Quyền xóa bỏ: bạn có thể yêu cầu xóa địa chỉ IP trong vòng 7 ngày kể từ lần truy cập gần nhất vì địa chỉ của bạn sẽ tự động bị xóa sau 7 ngày.",
+            "* Quyền phản đối: bạn có thể phản đối việc xử lý địa chỉ IP của mình.",
+            "* Quyền khiếu nại: bạn có quyền khiếu nại lên cơ quan giám sát nếu cho rằng dữ liệu của mình không được xử lý theo các quy định của GDPR.",
+            "### 10. Cập nhật thông báo quyền riêng tư:",
+            "Chúng tôi có thể cập nhật thông báo này để phản ánh những thay đổi trong cách xử lý dữ liệu hoặc các yêu cầu pháp lý. Chúng tôi sẽ thông báo cho bạn về bất kỳ thay đổi nào.",
+            "Chúng tôi coi trọng quyền riêng tư của bạn và cam kết bảo vệ dữ liệu của bạn cũng như tuân thủ GDPR. Nếu có thắc mắc hoặc muốn thực hiện các quyền của mình, vui lòng liên hệ tại nicolas.pope@uef.fi."
+        ]
+    },
+    "settings": {
+        "title": "Cài đặt",
+        "actions": {
+            "save": "Lưu",
+            "reset": "Đặt lại",
+            "cancel": "Hủy"
+        },
+        "labels": {
+            "language": "Ngôn ngữ",
+            "model": "Mô hình",
+            "variant": "Biến thể giao diện",
+            "advanced": "Nâng cao"
+        },
+        "values": {
+            "models": ["Hình ảnh (MobileNet)", "Tư thế (PoseNet)", "Bàn tay (MediaPipe)", "Giọng nói (SpeechCommands)"],
+            "variants": ["Sử dụng chung", "Lớp học"]
+        }
+    },
+    "widget": {
+        "aria": {
+            "editTitle": "chỉnh sửa tiêu đề",
+            "editTitleInput": "hộp chỉnh sửa {{value}}"
+        },
+        "labels": {
+            "titlePlaceholder": "Tên"
+        }
+    },
+    "feedback": {
+        "button": "Gửi ý kiến phản hồi",
+        "title": "Đóng góp ý kiến!",
+        "ratingTitle": "Nhìn chung, trải nghiệm của bạn với công cụ này như thế nào?",
+        "ratingVeryDissatisfied": "Rất không hài lòng",
+        "ratingVerySatisfied": "Rất hài lòng",
+        "recommendTitle": "Khả năng bạn giới thiệu công cụ này cho người khác là bao nhiêu?",
+        "recommendVeryUnlikely": "Rất khó xảy ra",
+        "recommendVeryLikely": "Rất có thể",
+        "experienceTitle": "Hãy chia sẻ với chúng tôi về trải nghiệm của bạn.",
+        "close": "Đóng",
+        "send": "Gửi phản hồi",
+        "error": "Rất tiếc!",
+        "errorMessage": "Chúng tôi không thể gửi ý kiến phản hồi của bạn. Vui lòng thử lại sau.",
+        "thankYou": "Cảm ơn bạn đã đóng góp ý kiến!"
+    },
+    "clock": {
+        "hours": "Giờ",
+        "minutes": "Phút",
+        "seconds": "Giây"
+    },
+    "aria": {
+        "close": "Đóng",
+        "stop": "Dừng",
+        "play": "Phát"
+    }
+}

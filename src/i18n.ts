@@ -37,6 +37,8 @@ i18n.use(detector)
             'ua-UA',
             'sw',
             'si-LK',
+            'vi',
+            'vi-VN',
         ],
         detection: {
             caches: [],
