@@ -10,42 +10,38 @@
 .fabButton {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     background: linear-gradient(135deg, #1b8c3e 0%, #2fc45c 100%);
     color: #ffffff;
-    border: 3px solid #ffffff;
+    border: 2.5px solid #ffffff;
     border-radius: 999px;
-    padding: 6px 18px 6px 8px;
+    padding: 5px 16px 5px 6px;
     cursor: pointer;
-    box-shadow: 0 10px 28px rgba(27, 140, 62, 0.42);
-    transition: transform 0.22s ease, box-shadow 0.22s ease;
+    box-shadow: 0 8px 24px rgba(27, 140, 62, 0.38);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
     font-weight: 700;
-    font-size: 14px;
+    font-size: 13.5px;
 }
 
 .fabButton:hover {
-    transform: translateY(-3px) scale(1.03);
-    box-shadow: 0 14px 32px rgba(27, 140, 62, 0.55);
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 12px 28px rgba(27, 140, 62, 0.5);
 }
 
 .fabMascotImg {
-    width: 48px;
-    height: 48px;
+    width: 42px;
+    height: 42px;
     object-fit: contain;
     background: #ffffff;
     border-radius: 50%;
     padding: 2px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.16);
 }
 
 .fabText {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
     white-space: nowrap;
 }
 
-/* Full-screen tour layer (non-blocking clicks on target elements!) */
+/* Full-screen tour layer */
 .tourLayer {
     position: fixed;
     inset: 0;
@@ -57,201 +53,172 @@
 .fullBackdrop {
     position: fixed;
     inset: 0;
-    background: rgba(11, 24, 34, 0.62);
-    backdrop-filter: blur(2px);
+    background: rgba(11, 24, 34, 0.55);
     pointer-events: none;
-    transition: opacity 0.3s ease;
 }
 
 /* Spotlight Cutout Box */
 .spotlightBox {
     position: fixed;
-    border-radius: 16px;
+    border-radius: 14px;
     box-shadow:
-        0 0 0 9999px rgba(10, 24, 36, 0.68),
-        0 0 0 4px #2ee56b,
-        0 0 28px 6px rgba(46, 229, 107, 0.65);
+        0 0 0 9999px rgba(10, 24, 36, 0.6),
+        0 0 0 3.5px #2ee56b,
+        0 0 22px 4px rgba(46, 229, 107, 0.55);
     pointer-events: none;
     transition:
-        top 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-        left 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-        width 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-        height 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+        top 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+        left 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+        width 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+        height 0.32s cubic-bezier(0.22, 1, 0.36, 1);
     z-index: 1501;
-}
-
-.spotlightPulse {
-    position: absolute;
-    inset: -6px;
-    border-radius: 20px;
-    border: 2px dashed rgba(255, 230, 102, 0.9);
-    animation: pulseBorder 2s infinite ease-in-out;
-    pointer-events: none;
-}
-
-@keyframes pulseBorder {
-    0%,
-    100% {
-        opacity: 0.95;
-        transform: scale(1);
-    }
-    50% {
-        opacity: 0.45;
-        transform: scale(1.012);
-    }
 }
 
 .spotlightBadge {
     position: absolute;
-    top: -32px;
+    top: -30px;
     left: 0;
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    background: linear-gradient(135deg, #157a34 0%, #25b852 100%);
+    gap: 5px;
+    background: #1b8c3e;
     color: #ffffff;
-    font-size: 12px;
+    font-size: 11.5px;
     font-weight: 700;
-    padding: 4px 12px;
+    padding: 3px 10px;
     border-radius: 999px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
     white-space: nowrap;
     border: 1.5px solid #ffffff;
 }
 
-/* Tour Card Positioning Wrapper */
+/* Compact Tour Card Positioning Wrapper */
 .tourCardWrapper {
     position: fixed;
     z-index: 1502;
     pointer-events: auto;
-    width: 440px;
+    width: 340px;
     max-width: calc(100vw - 24px);
     transition:
-        top 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-        left 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+        top 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+        left 0.32s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .tourCardCentered {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 470px;
 }
 
 .tourCardFloating {
     transform: none;
 }
 
-/* Directional pointer arrow indicating which element Mana is focusing on */
+/* Directional pointer arrow */
 .tourCardFloating[data-placement='right']::before {
     content: '';
     position: absolute;
-    left: -10px;
+    left: -8px;
     top: 50%;
     transform: translateY(-50%) rotate(45deg);
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     background: #ffffff;
-    border-left: 2.5px solid #25b852;
-    border-bottom: 2.5px solid #25b852;
+    border-left: 2px solid #25b852;
+    border-bottom: 2px solid #25b852;
     z-index: -1;
 }
 
 .tourCardFloating[data-placement='left']::before {
     content: '';
     position: absolute;
-    right: -10px;
+    right: -8px;
     top: 50%;
     transform: translateY(-50%) rotate(45deg);
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     background: #ffffff;
-    border-right: 2.5px solid #25b852;
-    border-top: 2.5px solid #25b852;
+    border-right: 2px solid #25b852;
+    border-top: 2px solid #25b852;
     z-index: -1;
 }
 
 .tourCardFloating[data-placement='bottom']::before {
     content: '';
     position: absolute;
-    top: -10px;
+    top: -8px;
     left: 50%;
     transform: translateX(-50%) rotate(45deg);
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     background: #ffffff;
-    border-left: 2.5px solid #25b852;
-    border-top: 2.5px solid #25b852;
+    border-left: 2px solid #25b852;
+    border-top: 2px solid #25b852;
     z-index: -1;
 }
 
 .tourCardFloating[data-placement='top']::before {
     content: '';
     position: absolute;
-    bottom: -10px;
+    bottom: -8px;
     left: 50%;
     transform: translateX(-50%) rotate(45deg);
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     background: #ffffff;
-    border-right: 2.5px solid #25b852;
-    border-bottom: 2.5px solid #25b852;
+    border-right: 2px solid #25b852;
+    border-bottom: 2px solid #25b852;
     z-index: -1;
 }
 
-/* Main Card Styling */
+/* Minimalist Card Styling */
 .guideCard {
     background: #ffffff;
-    border-radius: 20px;
+    border-radius: 16px;
     box-shadow:
-        0 20px 50px rgba(0, 0, 0, 0.35),
-        0 0 0 2.5px #25b852;
-    padding: 16px 18px;
+        0 14px 36px rgba(0, 0, 0, 0.28),
+        0 0 0 2px #25b852;
+    padding: 12px 14px;
     color: #1c2b36;
-    max-height: calc(100vh - 28px);
-    overflow-y: auto;
 }
 
 .cardHeader {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 8px;
     margin-bottom: 10px;
 }
 
-.badgeGroup {
+.stepDots {
     display: flex;
     align-items: center;
-    gap: 6px;
-    flex-wrap: wrap;
+    gap: 5px;
 }
 
-.stepBadge {
-    background: #e7f8ed;
+.stepDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    border: none;
+    background: #d5e2ea;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.stepDotActive {
+    width: 20px;
+    background: #1b8c3e;
+}
+
+.stepCounter {
+    margin-left: 6px;
+    font-size: 11.5px;
+    font-weight: 700;
     color: #157a34;
-    font-size: 12px;
-    font-weight: 700;
-    padding: 4px 10px;
+    background: #e7f8ed;
+    padding: 2px 8px;
     border-radius: 999px;
-}
-
-.focusIndicator {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    background: #fff4ce;
-    color: #945d00;
-    font-size: 11px;
-    font-weight: 700;
-    padding: 3px 9px;
-    border-radius: 999px;
-}
-
-.headerActions {
-    display: flex;
-    align-items: center;
-    gap: 4px;
 }
 
 .iconBtn {
@@ -259,15 +226,14 @@
     border: none;
     color: #526675;
     cursor: pointer;
-    width: 28px;
-    height: 28px;
-    font-size: 14px;
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
     font-weight: 700;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.15s ease, color 0.15s ease;
 }
 
 .iconBtn:hover {
@@ -275,89 +241,30 @@
     color: #1c2b36;
 }
 
-/* Interactive Quick-Jump Step Pills */
-.stepPillsRow {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    margin-bottom: 12px;
-    flex-wrap: wrap;
-}
-
-.stepPill {
-    min-width: 26px;
-    height: 24px;
-    border-radius: 999px;
-    border: 1.5px solid #d5e2ea;
-    background: #f7fafc;
-    color: #526675;
-    font-size: 11.5px;
-    font-weight: 700;
-    cursor: pointer;
-    padding: 0 7px;
-    transition: all 0.18s ease;
-}
-
-.stepPill:hover {
-    border-color: #25b852;
-    color: #157a34;
-    background: #edf9f1;
-}
-
-.stepPillDone {
-    background: #dff5e6;
-    border-color: #9be0b1;
-    color: #157a34;
-}
-
-.stepPillActive {
-    background: linear-gradient(135deg, #1b8c3e 0%, #2fc45c 100%);
-    border-color: #1b8c3e;
-    color: #ffffff;
-    transform: scale(1.08);
-    box-shadow: 0 2px 8px rgba(27, 140, 62, 0.35);
-}
-
-/* Mascot + Description Body */
+/* Mascot + Concise Description */
 .cardBody {
     display: flex;
-    gap: 14px;
+    gap: 12px;
     align-items: center;
     margin-bottom: 12px;
-}
-
-.mascotColumn {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-shrink: 0;
-    gap: 4px;
 }
 
 .mascotStage {
-    width: 102px;
-    height: 102px;
+    width: 84px;
+    height: 84px;
+    flex-shrink: 0;
     background: radial-gradient(circle at 50% 45%, #e8fbee 0%, #c9f2d6 100%);
-    border-radius: 20px;
+    border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 4px;
-    border: 2px solid #a9e8bd;
-    box-shadow: inset 0 2px 6px rgba(27, 140, 62, 0.1);
+    border: 1.5px solid #a9e8bd;
 }
 
 .mascotGif {
-    width: 94px;
-    height: 94px;
+    width: 78px;
+    height: 78px;
     object-fit: contain;
-}
-
-.mascotNameTag {
-    font-size: 11px;
-    font-weight: 800;
-    color: #157a34;
-    letter-spacing: 0.3px;
 }
 
 .contentColumn {
@@ -365,76 +272,19 @@
     min-width: 0;
 }
 
-.areaTag {
-    font-size: 11.5px;
-    color: #157a34;
-    background: #f0fbf3;
-    border: 1px solid #ccefd7;
-    padding: 3px 8px;
-    border-radius: 6px;
-    margin-bottom: 6px;
-    display: inline-block;
-}
-
 .stepTitle {
-    margin: 0 0 5px 0;
-    font-size: 16px;
+    margin: 0 0 4px 0;
+    font-size: 15px;
     font-weight: 800;
     color: #12232e;
-    line-height: 1.3;
+    line-height: 1.25;
 }
 
 .stepDesc {
     margin: 0;
-    font-size: 13.2px;
-    line-height: 1.48;
+    font-size: 13px;
+    line-height: 1.45;
     color: #3f5362;
-}
-
-/* Step-by-step How-To Instructions */
-.howToBox {
-    background: #f6fafd;
-    border: 1px solid #dce8f0;
-    border-radius: 12px;
-    padding: 10px 12px;
-    margin-bottom: 10px;
-}
-
-.howToHeader {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 12.5px;
-    font-weight: 800;
-    color: #165b8c;
-    margin-bottom: 6px;
-}
-
-.howToList {
-    margin: 0;
-    padding-left: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.howToItem {
-    font-size: 12.5px;
-    line-height: 1.42;
-    color: #263846;
-}
-
-/* Practical Tip Box */
-.tipBox {
-    background: #fffbeb;
-    border-left: 4px solid #f59e0b;
-    padding: 8px 11px;
-    border-radius: 6px;
-    font-size: 12.2px;
-    line-height: 1.4;
-    color: #92400e;
-    margin-bottom: 12px;
-    font-weight: 500;
 }
 
 /* Footer Buttons */
@@ -442,7 +292,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 8px;
     padding-top: 8px;
     border-top: 1px solid #edf2f5;
 }
@@ -451,11 +300,11 @@
     background: transparent;
     border: none;
     color: #6c7f8e;
-    font-size: 12.5px;
+    font-size: 12px;
     font-weight: 600;
     cursor: pointer;
-    padding: 6px 8px;
-    border-radius: 8px;
+    padding: 4px 6px;
+    border-radius: 6px;
 }
 
 .skipBtn:hover {
@@ -466,76 +315,36 @@
 .navButtons {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
 }
 
 .secondaryBtn {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
     background: #f0f4f7;
     border: 1px solid #d5e0e7;
     color: #2f4352;
-    font-size: 13px;
+    font-size: 12.5px;
     font-weight: 700;
-    padding: 7px 12px;
-    border-radius: 10px;
+    padding: 6px 11px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.15s ease;
 }
 
-.secondaryBtn:hover:not(:disabled) {
+.secondaryBtn:hover {
     background: #e2ebf0;
 }
 
-.secondaryBtn:disabled {
-    opacity: 0.42;
-    cursor: not-allowed;
-}
-
 .primaryBtn {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
     background: linear-gradient(135deg, #1b8c3e 0%, #2fc45c 100%);
     border: none;
     color: #ffffff;
-    font-size: 13px;
+    font-size: 12.5px;
     font-weight: 700;
-    padding: 8px 15px;
-    border-radius: 10px;
+    padding: 6px 13px;
+    border-radius: 8px;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(27, 140, 62, 0.32);
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    box-shadow: 0 3px 10px rgba(27, 140, 62, 0.28);
 }
 
 .primaryBtn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 6px 16px rgba(27, 140, 62, 0.45);
-}
-
-@media (max-width: 540px) {
-    .tourCardWrapper {
-        width: calc(100vw - 16px);
-    }
-
-    .cardBody {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .mascotColumn {
-        flex-direction: row;
-        gap: 10px;
-    }
-
-    .mascotStage {
-        width: 72px;
-        height: 72px;
-    }
-
-    .mascotGif {
-        width: 64px;
-        height: 64px;
-    }
+    filter: brightness(1.04);
 }
