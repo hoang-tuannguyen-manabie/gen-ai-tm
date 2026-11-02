@@ -331,7 +331,10 @@ export default function Workspace({ step, visitedStep, onComplete, saveTrigger, 
                             onExport={doShare}
                             onClone={doClone}
                         />
-                        <div className={style.previewActions}>
+                        <div
+                            className={style.previewActions}
+                            data-tour="xai-buttons"
+                        >
                             <BoxButton
                                 label={'Statistics'}
                                 icon={<InsertChartOutlinedIcon />}

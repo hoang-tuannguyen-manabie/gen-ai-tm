@@ -83,7 +83,10 @@ export default function ApplicationBar({ showReminder, onSave }: Props) {
                         height="48"
                     />
                 </a>
-                <div className={style.buttonBar}>
+                <div
+                    className={style.buttonBar}
+                    data-tour="appbar-save-load"
+                >
                     <BusyButton
                         busy={isloading}
                         data-testid="open-project"

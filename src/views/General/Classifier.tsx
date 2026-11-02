@@ -21,6 +21,7 @@ export default function ImageClassifier() {
     const [visited, setVisited] = useState(0);
     const [saveTrigger, setSaveTrigger] = useState<(() => void) | undefined>(undefined);
     const [showReminder, setShowReminder] = useState(false);
+    const [tourRevealColumns, setTourRevealColumns] = useState(false);
     const lastVariantRef = useRef(modelVariant);
     const setFeedback = useSetAtom(feedbackAtom);
 
@@ -68,14 +69,17 @@ export default function ImageClassifier() {
             />
             <Workspace
                 step={step}
-                visitedStep={visited}
+                visitedStep={tourRevealColumns ? Math.max(visited, 1) : visited}
                 onComplete={doComplete}
                 saveTrigger={saveTrigger}
                 onSkip={doSkip}
                 onSaveRemind={doSaveRemind}
             />
             <SettingsDialog />
-            <MascotGuide />
+            <MascotGuide
+                mode="workspace"
+                onRevealColumns={setTourRevealColumns}
+            />
             <nav
                 className={visited < 1 ? style.stepButton : style.stepButtonHidden}
                 aria-label={t('stepper.aria.step')}

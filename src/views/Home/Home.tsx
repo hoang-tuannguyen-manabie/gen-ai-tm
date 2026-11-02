@@ -23,13 +23,19 @@ export default function Home() {
     return (
         <ThemeProvider theme={theme}>
             <main className={style.homeContainer}>
-                <div className={style.lang}>
+                <div
+                    className={style.lang}
+                    data-tour="home-lang"
+                >
                     <LangSelect
                         languages={LANGS}
                         ns="image_adv"
                     />
                 </div>
-                <div className={style.header}>
+                <div
+                    className={style.header}
+                    data-tour="home-header"
+                >
                     <img
                         src="/logo192.png"
                         alt="GenAI logo"
@@ -39,7 +45,10 @@ export default function Home() {
                     <div className={style.headerColumn}>
                         <h1>{t('app.title')}</h1>
                         <h2>{t('app.subtitle')}</h2>
-                        <div className={style.buttons}>
+                        <div
+                            className={style.buttons}
+                            data-tour="home-materials"
+                        >
                             <LinkButton
                                 href="https://gen-ai.fi/en/materials/classifier-unit"
                                 startIcon={<SchoolIcon />}
@@ -55,7 +64,10 @@ export default function Home() {
                         </div>
                     </div>
                 </div>
-                <div className={style.selectGroup}>
+                <div
+                    className={style.selectGroup}
+                    data-tour="home-models"
+                >
                     <div className={style.intro}>{t('app.selectModel')}</div>
                     <div className={style.cards}>
                         <Model
@@ -81,7 +93,10 @@ export default function Home() {
                         />
                     </div>
                     {hasSerial && (
-                        <div className={style.options}>
+                        <div
+                            className={style.options}
+                            data-tour="home-usb"
+                        >
                             <FormControlLabel
                                 control={
                                     <Checkbox
@@ -100,7 +115,7 @@ export default function Home() {
                     appName="tm"
                     tag={gitInfo.gitTag || 'notag'}
                 />
-                <MascotGuide />
+                <MascotGuide mode="home" />
             </main>
         </ThemeProvider>
     );

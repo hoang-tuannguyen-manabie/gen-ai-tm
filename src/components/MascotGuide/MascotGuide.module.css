@@ -1,268 +1,541 @@
-.mascotGuideContainer {
+/* Floating minimized button */
+.floatingContainer {
     position: fixed;
-    bottom: 24px;
-    right: 24px;
-    z-index: 1300;
-    font-family: inherit;
-    pointer-events: none;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1500;
+    font-family: 'Roboto', 'Segoe UI', system-ui, -apple-system, sans-serif;
 }
 
-.interactiveArea {
-    pointer-events: auto;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-}
-
-/* Floating Avatar Badge when collapsed */
-.floatingAvatarButton {
+.fabButton {
     display: flex;
     align-items: center;
-    gap: 8px;
-    background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%);
-    color: white;
-    border: none;
-    border-radius: 50px;
-    padding: 6px 16px 6px 8px;
-    box-shadow: 0 8px 24px rgba(46, 125, 50, 0.35);
+    gap: 10px;
+    background: linear-gradient(135deg, #1b8c3e 0%, #2fc45c 100%);
+    color: #ffffff;
+    border: 3px solid #ffffff;
+    border-radius: 999px;
+    padding: 6px 18px 6px 8px;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    outline: none;
+    box-shadow: 0 10px 28px rgba(27, 140, 62, 0.42);
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+    font-weight: 700;
+    font-size: 14px;
 }
 
-.floatingAvatarButton:hover {
-    transform: translateY(-4px) scale(1.04);
-    box-shadow: 0 12px 28px rgba(46, 125, 50, 0.45);
-    background: linear-gradient(135deg, #66bb6a 0%, #388e3c 100%);
+.fabButton:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 14px 32px rgba(27, 140, 62, 0.55);
 }
 
-.avatarImage {
+.fabMascotImg {
     width: 48px;
     height: 48px;
     object-fit: contain;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-    animation: gentleBounce 2.5s infinite ease-in-out;
+    background: #ffffff;
+    border-radius: 50%;
+    padding: 2px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.16);
 }
 
-.avatarLabel {
-    font-size: 0.95rem;
-    font-weight: 600;
-    letter-spacing: 0.3px;
+.fabText {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     white-space: nowrap;
 }
 
-/* Speech Dialog Card */
+/* Full-screen tour layer (non-blocking clicks on target elements!) */
+.tourLayer {
+    position: fixed;
+    inset: 0;
+    z-index: 1500;
+    pointer-events: none;
+    font-family: 'Roboto', 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+.fullBackdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(11, 24, 34, 0.62);
+    backdrop-filter: blur(2px);
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+/* Spotlight Cutout Box */
+.spotlightBox {
+    position: fixed;
+    border-radius: 16px;
+    box-shadow:
+        0 0 0 9999px rgba(10, 24, 36, 0.68),
+        0 0 0 4px #2ee56b,
+        0 0 28px 6px rgba(46, 229, 107, 0.65);
+    pointer-events: none;
+    transition:
+        top 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+        left 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+        width 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+        height 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: 1501;
+}
+
+.spotlightPulse {
+    position: absolute;
+    inset: -6px;
+    border-radius: 20px;
+    border: 2px dashed rgba(255, 230, 102, 0.9);
+    animation: pulseBorder 2s infinite ease-in-out;
+    pointer-events: none;
+}
+
+@keyframes pulseBorder {
+    0%,
+    100% {
+        opacity: 0.95;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.45;
+        transform: scale(1.012);
+    }
+}
+
+.spotlightBadge {
+    position: absolute;
+    top: -32px;
+    left: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(135deg, #157a34 0%, #25b852 100%);
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 999px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    white-space: nowrap;
+    border: 1.5px solid #ffffff;
+}
+
+/* Tour Card Positioning Wrapper */
+.tourCardWrapper {
+    position: fixed;
+    z-index: 1502;
+    pointer-events: auto;
+    width: 440px;
+    max-width: calc(100vw - 24px);
+    transition:
+        top 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+        left 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.tourCardCentered {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 470px;
+}
+
+.tourCardFloating {
+    transform: none;
+}
+
+/* Directional pointer arrow indicating which element Mana is focusing on */
+.tourCardFloating[data-placement='right']::before {
+    content: '';
+    position: absolute;
+    left: -10px;
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+    width: 20px;
+    height: 20px;
+    background: #ffffff;
+    border-left: 2.5px solid #25b852;
+    border-bottom: 2.5px solid #25b852;
+    z-index: -1;
+}
+
+.tourCardFloating[data-placement='left']::before {
+    content: '';
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+    width: 20px;
+    height: 20px;
+    background: #ffffff;
+    border-right: 2.5px solid #25b852;
+    border-top: 2.5px solid #25b852;
+    z-index: -1;
+}
+
+.tourCardFloating[data-placement='bottom']::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 20px;
+    height: 20px;
+    background: #ffffff;
+    border-left: 2.5px solid #25b852;
+    border-top: 2.5px solid #25b852;
+    z-index: -1;
+}
+
+.tourCardFloating[data-placement='top']::before {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 20px;
+    height: 20px;
+    background: #ffffff;
+    border-right: 2.5px solid #25b852;
+    border-bottom: 2.5px solid #25b852;
+    z-index: -1;
+}
+
+/* Main Card Styling */
 .guideCard {
     background: #ffffff;
     border-radius: 20px;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(76, 175, 80, 0.2);
-    width: 380px;
-    max-width: calc(100vw - 48px);
-    margin-bottom: 14px;
-    overflow: hidden;
-    position: relative;
-    animation: slideUpFade 0.35s ease-out;
-    display: flex;
-    flex-direction: column;
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.35),
+        0 0 0 2.5px #25b852;
+    padding: 16px 18px;
+    color: #1c2b36;
+    max-height: calc(100vh - 28px);
+    overflow-y: auto;
 }
 
 .cardHeader {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 14px 18px 10px 18px;
-    background: linear-gradient(135deg, #f1f8e9 0%, #e8f5e9 100%);
-    border-bottom: 1px solid #c8e6c9;
+    gap: 8px;
+    margin-bottom: 10px;
 }
 
-.headerTitleGroup {
+.badgeGroup {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
+    flex-wrap: wrap;
 }
 
 .stepBadge {
-    background: #2e7d32;
-    color: #ffffff;
-    font-size: 0.75rem;
+    background: #e7f8ed;
+    color: #157a34;
+    font-size: 12px;
     font-weight: 700;
-    padding: 2px 10px;
-    border-radius: 12px;
+    padding: 4px 10px;
+    border-radius: 999px;
 }
 
-.closeButton {
-    background: transparent;
+.focusIndicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #fff4ce;
+    color: #945d00;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 999px;
+}
+
+.headerActions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.iconBtn {
+    background: #f3f6f8;
     border: none;
-    color: #555;
+    color: #526675;
     cursor: pointer;
-    padding: 4px;
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+    font-weight: 700;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.2s;
+    transition: background-color 0.15s ease, color 0.15s ease;
 }
 
-.closeButton:hover {
-    background: rgba(0, 0, 0, 0.08);
-    color: #000;
+.iconBtn:hover {
+    background: #e2e9ee;
+    color: #1c2b36;
 }
 
-/* Card Body with Mascot & Message */
-.cardBody {
-    padding: 16px 18px;
+/* Interactive Quick-Jump Step Pills */
+.stepPillsRow {
     display: flex;
-    gap: 16px;
-    align-items: flex-start;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
 }
 
-.mascotPreview {
-    width: 90px;
-    height: 90px;
+.stepPill {
+    min-width: 26px;
+    height: 24px;
+    border-radius: 999px;
+    border: 1.5px solid #d5e2ea;
+    background: #f7fafc;
+    color: #526675;
+    font-size: 11.5px;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 0 7px;
+    transition: all 0.18s ease;
+}
+
+.stepPill:hover {
+    border-color: #25b852;
+    color: #157a34;
+    background: #edf9f1;
+}
+
+.stepPillDone {
+    background: #dff5e6;
+    border-color: #9be0b1;
+    color: #157a34;
+}
+
+.stepPillActive {
+    background: linear-gradient(135deg, #1b8c3e 0%, #2fc45c 100%);
+    border-color: #1b8c3e;
+    color: #ffffff;
+    transform: scale(1.08);
+    box-shadow: 0 2px 8px rgba(27, 140, 62, 0.35);
+}
+
+/* Mascot + Description Body */
+.cardBody {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.mascotColumn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     flex-shrink: 0;
+    gap: 4px;
+}
+
+.mascotStage {
+    width: 102px;
+    height: 102px;
+    background: radial-gradient(circle at 50% 45%, #e8fbee 0%, #c9f2d6 100%);
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: mascotPop 0.4s ease-out;
+    padding: 4px;
+    border: 2px solid #a9e8bd;
+    box-shadow: inset 0 2px 6px rgba(27, 140, 62, 0.1);
 }
 
-.mascotPreview img {
-    width: 100%;
-    height: 100%;
+.mascotGif {
+    width: 94px;
+    height: 94px;
     object-fit: contain;
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
 }
 
-.messageContent {
+.mascotNameTag {
+    font-size: 11px;
+    font-weight: 800;
+    color: #157a34;
+    letter-spacing: 0.3px;
+}
+
+.contentColumn {
     flex: 1;
+    min-width: 0;
+}
+
+.areaTag {
+    font-size: 11.5px;
+    color: #157a34;
+    background: #f0fbf3;
+    border: 1px solid #ccefd7;
+    padding: 3px 8px;
+    border-radius: 6px;
+    margin-bottom: 6px;
+    display: inline-block;
 }
 
 .stepTitle {
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: #1b5e20;
-    margin: 0 0 6px 0;
+    margin: 0 0 5px 0;
+    font-size: 16px;
+    font-weight: 800;
+    color: #12232e;
     line-height: 1.3;
 }
 
-.stepDescription {
-    font-size: 0.9rem;
-    color: #37474f;
-    line-height: 1.45;
-    margin: 0 0 8px 0;
+.stepDesc {
+    margin: 0;
+    font-size: 13.2px;
+    line-height: 1.48;
+    color: #3f5362;
 }
 
-.stepTip {
-    font-size: 0.82rem;
-    color: #e65100;
-    background: #fff3e0;
-    border-left: 3px solid #ff9800;
-    padding: 6px 8px;
-    border-radius: 4px;
-    margin-top: 6px;
-    line-height: 1.35;
+/* Step-by-step How-To Instructions */
+.howToBox {
+    background: #f6fafd;
+    border: 1px solid #dce8f0;
+    border-radius: 12px;
+    padding: 10px 12px;
+    margin-bottom: 10px;
 }
 
-/* Footer & Actions */
+.howToHeader {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12.5px;
+    font-weight: 800;
+    color: #165b8c;
+    margin-bottom: 6px;
+}
+
+.howToList {
+    margin: 0;
+    padding-left: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.howToItem {
+    font-size: 12.5px;
+    line-height: 1.42;
+    color: #263846;
+}
+
+/* Practical Tip Box */
+.tipBox {
+    background: #fffbeb;
+    border-left: 4px solid #f59e0b;
+    padding: 8px 11px;
+    border-radius: 6px;
+    font-size: 12.2px;
+    line-height: 1.4;
+    color: #92400e;
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+
+/* Footer Buttons */
 .cardFooter {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 12px 18px 16px 18px;
-    border-top: 1px solid #f0f0f0;
-    background: #fafafa;
+    gap: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #edf2f5;
 }
 
-.progressDots {
+.skipBtn {
+    background: transparent;
+    border: none;
+    color: #6c7f8e;
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 6px 8px;
+    border-radius: 8px;
+}
+
+.skipBtn:hover {
+    color: #263846;
+    background: #f1f5f8;
+}
+
+.navButtons {
     display: flex;
-    gap: 6px;
-}
-
-.dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #cfd8dc;
-    transition: all 0.25s;
-}
-
-.activeDot {
-    width: 20px;
-    border-radius: 4px;
-    background: #2e7d32;
-}
-
-.buttonGroup {
-    display: flex;
+    align-items: center;
     gap: 8px;
 }
 
-.btnSecondary {
-    background: transparent;
-    border: 1px solid #b0bec5;
-    color: #455a64;
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 600;
+.secondaryBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #f0f4f7;
+    border: 1px solid #d5e0e7;
+    color: #2f4352;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 7px 12px;
+    border-radius: 10px;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: background-color 0.15s ease;
 }
 
-.btnSecondary:hover {
-    background: #eceff1;
-    border-color: #90a4ae;
+.secondaryBtn:hover:not(:disabled) {
+    background: #e2ebf0;
 }
 
-.btnPrimary {
-    background: linear-gradient(135deg, #43a047 0%, #2e7d32 100%);
+.secondaryBtn:disabled {
+    opacity: 0.42;
+    cursor: not-allowed;
+}
+
+.primaryBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: linear-gradient(135deg, #1b8c3e 0%, #2fc45c 100%);
     border: none;
-    color: white;
-    padding: 6px 18px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 600;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 8px 15px;
+    border-radius: 10px;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
-    transition: all 0.2s;
+    box-shadow: 0 4px 12px rgba(27, 140, 62, 0.32);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.btnPrimary:hover {
-    background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
-    box-shadow: 0 6px 16px rgba(46, 125, 50, 0.4);
+.primaryBtn:hover {
     transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(27, 140, 62, 0.45);
 }
 
-/* Animations */
-@keyframes gentleBounce {
-    0%, 100% {
-        transform: translateY(0);
+@media (max-width: 540px) {
+    .tourCardWrapper {
+        width: calc(100vw - 16px);
     }
-    50% {
-        transform: translateY(-6px);
-    }
-}
 
-@keyframes slideUpFade {
-    from {
-        opacity: 0;
-        transform: translateY(16px) scale(0.96);
+    .cardBody {
+        flex-direction: column;
+        align-items: flex-start;
     }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
 
-@keyframes mascotPop {
-    0% {
-        transform: scale(0.8) rotate(-5deg);
+    .mascotColumn {
+        flex-direction: row;
+        gap: 10px;
     }
-    50% {
-        transform: scale(1.08) rotate(3deg);
+
+    .mascotStage {
+        width: 72px;
+        height: 72px;
     }
-    100% {
-        transform: scale(1) rotate(0deg);
+
+    .mascotGif {
+        width: 64px;
+        height: 64px;
     }
 }
