@@ -287,6 +287,18 @@
     color: #3f5362;
 }
 
+.insightPill {
+    background: #f0f9f3;
+    border-left: 3px solid #1b8c3e;
+    color: #145929;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+    padding: 6px 10px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
 /* Footer Buttons */
 .cardFooter {
     display: flex;

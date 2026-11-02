@@ -8,6 +8,7 @@ export interface GuideStep {
     title: string;
     areaName: string;
     description: string;
+    insight?: string;
     gif: string;
     targetSelector: string | null;
     revealColumns?: boolean;
@@ -21,6 +22,7 @@ const HOME_STEPS_VI: GuideStep[] = [
         areaName: 'Trang chủ Teachable Machine',
         description:
             'Cùng Mana tự tay huấn luyện AI nhận diện hình ảnh, tư thế, cử chỉ tay và âm thanh ngay trên trình duyệt nhé!',
+        insight: '🧭 Lấy con người làm trung tâm: Con người là người dạy, kiểm chứng và định hướng cho AI.',
         gif: '/mascot/mana_dong_chao.gif',
         targetSelector: '[data-tour="home-header"]',
     },
@@ -40,6 +42,7 @@ const HOME_STEPS_VI: GuideStep[] = [
         areaName: '4 Bộ phân loại AI',
         description:
             'Chọn Hình ảnh, Tư thế, Cử chỉ tay hoặc Âm thanh, sau đó nhấn "Tạo mới" để bắt đầu huấn luyện!',
+        insight: '⚖️ Đạo đức AI: Mọi dữ liệu xử lý ngay trên thiết bị, tôn trọng quyền riêng tư và an toàn.',
         gif: '/mascot/mana_dong_vo_tay.gif',
         targetSelector: '[data-tour="home-models"]',
     },
@@ -53,6 +56,7 @@ const HOME_STEPS_EN: GuideStep[] = [
         areaName: 'Teachable Machine Home',
         description:
             'Train your own AI to recognize images, poses, hand gestures, and sounds right in your browser!',
+        insight: '🧭 Human-Centric AI: Humans teach, guide, and verify how AI behaves.',
         gif: '/mascot/mana_dong_chao.gif',
         targetSelector: '[data-tour="home-header"]',
     },
@@ -71,6 +75,7 @@ const HOME_STEPS_EN: GuideStep[] = [
         title: 'Pick an AI Model 🚀',
         areaName: '4 AI Classifiers',
         description: 'Choose Image, Pose, Hand Gesture, or Speech, then click "Create" to start training!',
+        insight: '⚖️ AI Ethics: Data is processed locally on your device to respect privacy and safety.',
         gif: '/mascot/mana_dong_vo_tay.gif',
         targetSelector: '[data-tour="home-models"]',
     },
@@ -79,18 +84,19 @@ const HOME_STEPS_EN: GuideStep[] = [
 const WORKSPACE_STEPS_VI: GuideStep[] = [
     {
         id: 'ws-training-data',
-        badge: '1 / 7',
+        badge: '1 / 8',
         title: '1. Thu thập Dữ liệu mẫu',
         areaName: 'Cột Dữ liệu (Classes)',
         description:
             'Đặt tên cho từng Lớp, sau đó mở Webcam hoặc Tải tệp lên để thu thập mẫu cho ít nhất 2 lớp.',
+        insight: '⚖️ Đạo đức AI: Dữ liệu mẫu đa dạng, công bằng giúp AI tránh định kiến (bias).',
         gif: '/mascot/mana_dong_chi.gif',
         targetSelector: '#class-0',
         revealColumns: false,
     },
     {
         id: 'ws-add-class',
-        badge: '2 / 7',
+        badge: '2 / 8',
         title: '2. Thêm Lớp mới',
         areaName: 'Nút + Thêm lớp',
         description: 'Nhấn "+ Thêm lớp" nếu bạn muốn dạy AI phân biệt nhiều nhóm đối tượng hơn.',
@@ -100,39 +106,52 @@ const WORKSPACE_STEPS_VI: GuideStep[] = [
     },
     {
         id: 'ws-trainer',
-        badge: '3 / 7',
+        badge: '3 / 8',
         title: '3. Huấn luyện AI',
         areaName: 'Khối Huấn luyện (Training)',
-        description: 'Khi đã có mẫu ở các lớp, nhấn nút "Huấn luyện" để máy bắt đầu học cách phân loại.',
+        description: 'Khi đã có mẫu ở các lớp, nhấn nút "Huấn luyện" để máy bắt đầu học từ dữ liệu của bạn.',
+        insight: '💡 AI chỉ thông minh bằng dữ liệu mà con người dạy cho nó.',
         gif: '/mascot/mana_dong_noi.gif',
         targetSelector: '[data-widget="trainer"]',
         revealColumns: false,
     },
     {
         id: 'ws-input',
-        badge: '4 / 7',
+        badge: '4 / 8',
         title: '4. Đầu vào Kiểm thử',
         areaName: 'Khối Đầu vào (Input)',
-        description: 'Bật Webcam, chọn Tệp hoặc quét QR từ điện thoại để đưa dữ liệu thử nghiệm vào mô hình.',
+        description: 'Bật Webcam, chọn Tệp hoặc quét QR từ điện thoại để thử thách mô hình với tình huống thực tế.',
         gif: '/mascot/mana_dong_chi.gif',
         targetSelector: '[data-widget="input"]',
         revealColumns: false,
     },
     {
         id: 'ws-preview',
-        badge: '5 / 7',
-        title: '5. Kết quả & Giải thích AI',
-        areaName: 'Xem trước & Công cụ XAI',
-        description:
-            'Xem tỷ lệ dự đoán theo thời gian thực, xuất mô hình hoặc mở Thống kê (Statistics) & Bản đồ nhiệt (Heatmap).',
-        gif: '/mascot/mana_dong_kiem_tra.gif',
+        badge: '5 / 8',
+        title: '5. Dự đoán & Sai số của AI',
+        areaName: 'Khối Xem trước (Preview)',
+        description: 'Quan sát thanh tỷ lệ dự đoán theo thời gian thực cho từng lớp.',
+        insight: '⚠️ AI có thể sai! Khi AI nhầm lẫn, hãy quay lại bước 1 thu thập thêm dữ liệu mẫu và dạy lại máy.',
+        gif: '/mascot/mana_dong_boi_roi.gif',
         targetSelector: '[data-widget="model"]',
         revealColumns: false,
     },
     {
+        id: 'ws-xai',
+        badge: '6 / 8',
+        title: '6. Giải thích AI & Đạo đức AI',
+        areaName: 'Statistics & Heatmap',
+        description:
+            'Mở Thống kê & Bản đồ nhiệt (Heatmap) để kiểm tra vùng hình ảnh nào khiến AI đưa ra quyết định.',
+        insight: '🧭 Lấy con người làm trung tâm: Không tin mù quáng vào AI — con người luôn kiểm chứng và chịu trách nhiệm.',
+        gif: '/mascot/mana_dong_kiem_tra.gif',
+        targetSelector: '[data-tour="xai-buttons"]',
+        revealColumns: false,
+    },
+    {
         id: 'ws-behaviours',
-        badge: '6 / 7',
-        title: '6. Gán Hành động phản hồi',
+        badge: '7 / 8',
+        title: '7. Gán Hành động phản hồi',
         areaName: 'Cột Hành động (Actions)',
         description: 'Chọn hiệu ứng tự động (hiện chữ, hình ảnh, phát âm thanh) khi AI nhận diện trúng từng lớp.',
         gif: '/mascot/mana_dong_noi.gif',
@@ -141,11 +160,12 @@ const WORKSPACE_STEPS_VI: GuideStep[] = [
     },
     {
         id: 'ws-output',
-        badge: '7 / 7',
-        title: '7. Đầu ra & Lưu dự án 🎉',
+        badge: '8 / 8',
+        title: '8. Đầu ra & Lưu dự án 🎉',
         areaName: 'Cột Đầu ra (Output)',
         description:
             'Xem kết quả trình chiếu tại đây và nhấn nút "Lưu" trên thanh công cụ để tải dự án về máy nhé!',
+        insight: '🌱 Hãy dùng AI một cách có trách nhiệm để tạo ra giá trị tốt đẹp cho cộng đồng!',
         gif: '/mascot/mana_dong_vo_tay.gif',
         targetSelector: '[data-widget="output"]',
         revealColumns: true,
@@ -155,17 +175,18 @@ const WORKSPACE_STEPS_VI: GuideStep[] = [
 const WORKSPACE_STEPS_EN: GuideStep[] = [
     {
         id: 'ws-training-data',
-        badge: '1 / 7',
+        badge: '1 / 8',
         title: '1. Collect Training Samples',
         areaName: 'Class Card',
         description: 'Name each class and use your Webcam or Upload files to add examples for at least 2 classes.',
+        insight: '⚖️ AI Ethics: Diverse, balanced data helps prevent unfair AI bias.',
         gif: '/mascot/mana_dong_chi.gif',
         targetSelector: '#class-0',
         revealColumns: false,
     },
     {
         id: 'ws-add-class',
-        badge: '2 / 7',
+        badge: '2 / 8',
         title: '2. Add More Classes',
         areaName: '+ Add a class',
         description: 'Click "+ Add a class" whenever you want your AI to recognize additional categories.',
@@ -175,17 +196,18 @@ const WORKSPACE_STEPS_EN: GuideStep[] = [
     },
     {
         id: 'ws-trainer',
-        badge: '3 / 7',
+        badge: '3 / 8',
         title: '3. Train Your Model',
         areaName: 'Training Block',
-        description: 'Once your classes have samples, click "Train" so the AI learns to distinguish them.',
+        description: 'Once your classes have samples, click "Train" so the AI learns from your examples.',
+        insight: '💡 AI only knows what humans teach it through data.',
         gif: '/mascot/mana_dong_noi.gif',
         targetSelector: '[data-widget="trainer"]',
         revealColumns: false,
     },
     {
         id: 'ws-input',
-        badge: '4 / 7',
+        badge: '4 / 8',
         title: '4. Test Input',
         areaName: 'Input Block',
         description: 'Use your Webcam, upload a file, or connect a mobile device to test your trained model live.',
@@ -195,18 +217,30 @@ const WORKSPACE_STEPS_EN: GuideStep[] = [
     },
     {
         id: 'ws-preview',
-        badge: '5 / 7',
-        title: '5. Preview & Explainable AI',
-        areaName: 'Preview & XAI',
-        description: 'Check real-time confidence bars, export your model, or inspect Statistics and Heatmaps.',
-        gif: '/mascot/mana_dong_kiem_tra.gif',
+        badge: '5 / 8',
+        title: '5. Predictions & AI Mistakes',
+        areaName: 'Preview Block',
+        description: 'Watch real-time confidence bars for each class.',
+        insight: '⚠️ AI can make mistakes! When it guesses wrong, feed it more diverse training samples and retrain.',
+        gif: '/mascot/mana_dong_boi_roi.gif',
         targetSelector: '[data-widget="model"]',
         revealColumns: false,
     },
     {
+        id: 'ws-xai',
+        badge: '6 / 8',
+        title: '6. Explainable & Ethical AI',
+        areaName: 'Statistics & Heatmap',
+        description: 'Inspect Statistics and Heatmaps to see why the AI made a prediction.',
+        insight: '🧭 Human-Centric AI: Never trust AI blindly—humans must verify decisions and uphold ethics.',
+        gif: '/mascot/mana_dong_kiem_tra.gif',
+        targetSelector: '[data-tour="xai-buttons"]',
+        revealColumns: false,
+    },
+    {
         id: 'ws-behaviours',
-        badge: '6 / 7',
-        title: '6. Assign Actions',
+        badge: '7 / 8',
+        title: '7. Assign Actions',
         areaName: 'Actions Column',
         description: 'Trigger text, images, or sounds automatically whenever a class is detected.',
         gif: '/mascot/mana_dong_noi.gif',
@@ -215,10 +249,11 @@ const WORKSPACE_STEPS_EN: GuideStep[] = [
     },
     {
         id: 'ws-output',
-        badge: '7 / 7',
-        title: '7. Output & Save Project 🎉',
+        badge: '8 / 8',
+        title: '8. Output & Save Project 🎉',
         areaName: 'Output Column',
         description: 'See your final interactive output here, and use "Save" in the top bar to download your project!',
+        insight: '🌱 Build responsible AI that serves people positively!',
         gif: '/mascot/mana_dong_vo_tay.gif',
         targetSelector: '[data-widget="output"]',
         revealColumns: true,
@@ -329,8 +364,8 @@ export default function MascotGuide({ mode = 'workspace', onRevealColumns }: Mas
                 height: spotHeight,
             });
 
-            const cardWidth = Math.min(340, vw - 24);
-            const cardHeight = cardRef.current?.offsetHeight || 220;
+            const cardWidth = Math.min(350, vw - 24);
+            const cardHeight = cardRef.current?.offsetHeight || 240;
             const gap = 18;
             const margin = 12;
 
@@ -528,6 +563,8 @@ export default function MascotGuide({ mode = 'workspace', onRevealColumns }: Mas
                             <p className={style.stepDesc}>{step.description}</p>
                         </div>
                     </div>
+
+                    {step.insight && <div className={style.insightPill}>{step.insight}</div>}
 
                     <div className={style.cardFooter}>
                         <button
