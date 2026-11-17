@@ -70,11 +70,15 @@ export default function JuniorWorkspace({
     const bannerInfo = useMemo(() => {
         if (activePage === 0) {
             return {
-                gif: '/mascot/mana_dong_chi.gif',
+                gif: isTrainable ? '/mascot/mana_dong_mung.gif' : '/mascot/mana_dong_chi.gif',
                 title: isVi ? 'Bước 1: Thu thập ví dụ & Gắn nhãn' : 'Step 1: Collect Examples & Label',
-                desc: isVi
-                    ? 'Đặt tên nhãn và thêm ít nhất 2 ví dụ (Webcam hoặc Tải lên) cho mỗi nhóm.'
-                    : 'Name each group and add at least 2 examples (Webcam or Upload) per group.',
+                desc: isTrainable
+                    ? (isVi
+                          ? '✅ Đã đủ ví dụ! Em hãy bấm vào "2. Cho máy học" ở thanh phía trên nhé.'
+                          : '✅ Ready! Click "2. Train Model" on the top bar.')
+                    : (isVi
+                          ? 'Đặt tên nhãn và thêm ít nhất 2 ví dụ (Webcam hoặc Tải lên) cho mỗi nhóm.'
+                          : 'Name each group and add at least 2 examples (Webcam or Upload) per group.'),
             };
         }
         if (activePage === 1) {
@@ -83,26 +87,26 @@ export default function JuniorWorkspace({
                     gif: '/mascot/mana_dong_vo_tay.gif',
                     title: isVi ? 'Máy đã học xong rồi! 🎉' : 'The computer finished learning! 🎉',
                     desc: isVi
-                        ? 'Bấm "Sang Bước 3: Kiểm tra, đánh giá" để thử tài của máy nhé!'
-                        : 'Click "Go to Step 3: Test & Evaluate" to test your model!',
+                        ? 'Em hãy bấm vào "3. Kiểm tra, đánh giá" ở thanh phía trên để thử tài của máy nhé!'
+                        : 'Click "3. Test & Evaluate" on the top bar to test your model!',
                 };
             }
             return {
                 gif: '/mascot/mana_dong_noi.gif',
                 title: isVi ? 'Bước 2: Cho máy học' : 'Step 2: Train the Computer',
                 desc: isVi
-                    ? 'Bấm nút "Huấn luyện" để máy học từ các ví dụ em vừa thu thập.'
-                    : 'Click "Train" so the computer learns from your collected examples.',
+                    ? 'Bấm nút "Huấn luyện" ở bên dưới để máy học từ các ví dụ em vừa thu thập.'
+                    : 'Click "Train" below so the computer learns from your collected examples.',
             };
         }
         return {
             gif: '/mascot/mana_dong_kiem_tra.gif',
             title: isVi ? 'Bước 3: Kiểm tra, đánh giá' : 'Step 3: Test & Evaluate',
             desc: isVi
-                ? 'Đưa hình ảnh/âm thanh vào bên trái và xem kết quả máy đoán ở bên phải.'
-                : 'Provide input on the left and check the prediction results on the right.',
+                ? 'Đưa hình ảnh vào bên trái để xem máy đoán. 💡 Nếu máy đoán chưa đúng, em hãy bấm vào Bước 1 để nạp thêm ví dụ nhé!'
+                : 'Provide input on the left to see predictions. 💡 If incorrect, click Step 1 to add more examples!',
         };
-    }, [activePage, hasModel, isVi]);
+    }, [activePage, hasModel, isTrainable, isVi]);
 
     return (
         <div className={style.juniorViewport}>
@@ -166,30 +170,6 @@ export default function JuniorWorkspace({
                                     onLabelEdited={doLabelEdited}
                                 />
                             </div>
-
-                            <footer className={style.pageFooterBar}>
-                                <div className={style.readinessHint}>
-                                    {isTrainable ? (
-                                        <span className={style.readyBadge}>
-                                            ✅ {isVi ? 'Đã đủ ví dụ! Sẵn sàng sang Bước 2.' : 'Ready for Step 2!'}
-                                        </span>
-                                    ) : (
-                                        <span className={style.pendingBadge}>
-                                            💡{' '}
-                                            {isVi
-                                                ? 'Cần ít nhất 2 nhóm nhãn, mỗi nhóm từ 2 ví dụ trở lên.'
-                                                : 'Add at least 2 examples in 2 groups.'}
-                                        </span>
-                                    )}
-                                </div>
-                                <button
-                                    type="button"
-                                    className={style.nextPageBtn}
-                                    onClick={() => setActivePage(1)}
-                                >
-                                    {isVi ? 'Bước 2: Cho máy học →' : 'Step 2: Train →'}
-                                </button>
-                            </footer>
                         </div>
 
                         {/* PAGE 2: Cho máy học */}
@@ -225,29 +205,21 @@ export default function JuniorWorkspace({
                                     />
                                 </div>
                             </div>
-
-                            <footer className={style.pageFooterBar}>
-                                <button
-                                    type="button"
-                                    className={style.backPageBtn}
-                                    onClick={() => setActivePage(0)}
-                                >
-                                    ← {isVi ? 'Bước 1: Thu thập ví dụ' : 'Step 1: Collect'}
-                                </button>
-
-                                <button
-                                    type="button"
-                                    className={style.nextPageBtn}
-                                    onClick={() => setActivePage(2)}
-                                >
-                                    {isVi ? 'Bước 3: Kiểm tra, đánh giá →' : 'Step 3: Test & Evaluate →'}
-                                </button>
-                            </footer>
                         </div>
 
                         {/* PAGE 3: Kiểm tra, đánh giá + Note Bước 4: Điều chỉnh */}
                         {activePage === 2 && (
                             <div className={style.pageThreeWrapper}>
+                                <div className={style.stepFourNotice}>
+                                    <span className={style.stepFourNoticeIcon}>🔄</span>
+                                    <span>
+                                        <strong>{isVi ? 'Lưu ý điều chỉnh (Bước 4):' : 'Adjustment Note (Step 4):'}</strong>{' '}
+                                        {isVi
+                                            ? 'AI cũng có thể sai! Nếu máy đoán chưa đúng, em hãy bấm lại Bước 1 ở thanh trên để nạp thêm ví dụ.'
+                                            : 'AI can make mistakes! If predictions are incorrect, click Step 1 above to add more examples.'}
+                                    </span>
+                                </div>
+
                                 <div className={style.testGrid}>
                                     <div className={style.testCard}>
                                         <Input />
@@ -259,41 +231,6 @@ export default function JuniorWorkspace({
                                         />
                                     </div>
                                 </div>
-
-                                {/* Compact Bottom Bar combining Back Button + Note Bước 4: Điều chỉnh */}
-                                <footer className={style.stepFourBar}>
-                                    <button
-                                        type="button"
-                                        className={style.backPageBtn}
-                                        onClick={() => setActivePage(1)}
-                                    >
-                                        ← {isVi ? 'Bước 2' : 'Step 2'}
-                                    </button>
-
-                                    <div className={style.stepFourNoteInline}>
-                                        <img
-                                            src="/mascot/mana_dong_boi_roi.gif"
-                                            alt="Mana"
-                                            className={style.stepFourGif}
-                                        />
-                                        <div className={style.stepFourText}>
-                                            <strong>
-                                                🔄 {isVi ? 'Bước 4 — Điều chỉnh:' : 'Step 4 — Adjust:'}
-                                            </strong>{' '}
-                                            {isVi
-                                                ? 'AI cũng có thể sai! Nếu máy đoán chưa đúng, em hãy quay lại Bước 1 nạp thêm ví dụ nhé.'
-                                                : 'AI can make mistakes! If it guesses wrong, go back to Step 1 to add more examples.'}
-                                        </div>
-                                    </div>
-
-                                    <button
-                                        type="button"
-                                        className={style.adjustReturnBtn}
-                                        onClick={() => setActivePage(0)}
-                                    >
-                                        ➕ {isVi ? 'Quay lại Bước 1 thêm ví dụ' : 'Back to Step 1'}
-                                    </button>
-                                </footer>
                             </div>
                         )}
                     </section>

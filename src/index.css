@@ -48,3 +48,12 @@ code {
 p {
     margin: 0;
 }
+
+/* Hide Netlify deploy preview badge / drawer if injected by platform */
+iframe[src*="netlify"],
+iframe#netlify-feedback-drawer,
+.netlify-badge,
+[data-netlify-deploy-preview-badge],
+#netlify-badge {
+    display: none !important;
+}
