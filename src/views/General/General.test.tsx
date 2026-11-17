@@ -32,3 +32,21 @@ it('renders general view', async ({ expect }) => {
         expect(linkElement).toBeInTheDocument();
     });
 });
+
+it('renders junior view', async ({ expect }) => {
+    render(
+        <MemoryRouter initialEntries={['/image/junior']}>
+            <Provider>
+                <Routes>
+                    <Route
+                        path=":kind/:variant"
+                        element={<Component />}
+                    />
+                </Routes>
+            </Provider>
+        </MemoryRouter>
+    );
+    await waitFor(() => {
+        expect(screen.getByTestId('addClass')).toBeInTheDocument();
+    });
+});

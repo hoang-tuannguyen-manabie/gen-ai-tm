@@ -30,6 +30,32 @@
     color: white;
 }
 
+.juniorToggleBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: 1.5px solid rgba(255, 255, 255, 0.55);
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    font-size: 13.5px;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.juniorToggleBtn:hover {
+    background: rgba(255, 255, 255, 0.22);
+    border-color: #ffffff;
+}
+
+.juniorToggleActive {
+    background: linear-gradient(135deg, #1b8c3e 0%, #2fc45c 100%);
+    border-color: #9be0b1;
+    box-shadow: 0 3px 10px rgba(47, 196, 92, 0.35);
+}
+
 .langBar {
     display: flex;
     gap: 0.5rem;

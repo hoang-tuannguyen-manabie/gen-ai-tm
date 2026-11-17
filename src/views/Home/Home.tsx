@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { Checkbox, FormControlLabel } from '@mui/material';
 import { LangSelect, Privacy } from '@genai-fi/base';
 import gitInfo from '../../generatedGitInfo.json';
-import { theme } from '@genai-fi/base';
+import { theme } from '../../theme';
 import { ThemeProvider } from '@mui/material/styles';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import SchoolIcon from '@mui/icons-material/School';
@@ -13,10 +13,14 @@ import LinkButton from './LinkButton';
 import { LANGS } from '@genaitm/components/AppBar/AppBar';
 import RecordVoiceOverIcon from '@mui/icons-material/RecordVoiceOver';
 import MascotGuide from '@genaitm/components/MascotGuide/MascotGuide';
+import { useAtom } from 'jotai';
+import { juniorModeAtom } from '@genaitm/state';
 
 export default function Home() {
-    const { t } = useTranslation('image_adv');
+    const { t, i18n } = useTranslation('image_adv');
     const [usb, setUsb] = useState(false);
+    const [juniorMode, setJuniorMode] = useAtom(juniorModeAtom);
+    const isVi = i18n.language?.startsWith('vi');
 
     const hasSerial = 'serial' in navigator;
 
@@ -39,8 +43,9 @@ export default function Home() {
                     <img
                         src="/logo192.png"
                         alt="GenAI logo"
-                        width={192}
-                        height={192}
+                        width={128}
+                        height={128}
+                        className={style.headerLogo}
                     />
                     <div className={style.headerColumn}>
                         <h1>{t('app.title')}</h1>
@@ -64,6 +69,30 @@ export default function Home() {
                         </div>
                     </div>
                 </div>
+
+                {/* Concise Mode Switcher */}
+                <div className={style.modeSwitchGroup}>
+                    <button
+                        type="button"
+                        className={`${style.modeBtn} ${!juniorMode ? style.modeBtnActive : ''}`}
+                        onClick={() => setJuniorMode(false)}
+                    >
+                        🖥️ {isVi ? 'Đầy đủ' : 'Standard'}
+                    </button>
+                    <button
+                        type="button"
+                        className={`${style.modeBtn} ${juniorMode ? style.modeBtnJuniorActive : ''}`}
+                        onClick={() => setJuniorMode(true)}
+                    >
+                        <img
+                            src="/mascot/mana_dong_chao.gif"
+                            alt="Mana"
+                            className={style.modeManaIcon}
+                        />
+                        <span>{isVi ? 'Tối giản' : 'Simplified'}</span>
+                    </button>
+                </div>
+
                 <div
                     className={style.selectGroup}
                     data-tour="home-models"
@@ -73,21 +102,25 @@ export default function Home() {
                         <Model
                             id="image"
                             usb={usb}
+                            junior={juniorMode}
                             image="/dog1.jpg"
                         />
                         <Model
                             id="pose"
                             usb={usb}
+                            junior={juniorMode}
                             image="/body.jpg"
                         />
                         <Model
                             id="hand"
                             usb={usb}
+                            junior={juniorMode}
                             image="/gesture1.jpg"
                         />
                         <Model
                             id="speech"
                             usb={usb}
+                            junior={juniorMode}
                             image="/sound1.jpg"
                             icon={<RecordVoiceOverIcon sx={{ fontSize: 64 }} />}
                         />

@@ -51,5 +51,13 @@
         "embedBehaviours": false,
         "showSettings": false,
         "showSaveReminder": true
+    },
+    "junior": {
+        "namespace": "image_adv",
+        "embedBehaviours": false,
+        "advancedMenu": false,
+        "showSettings": false,
+        "showSaveReminder": false,
+        "juniorMode": true
     }
 }

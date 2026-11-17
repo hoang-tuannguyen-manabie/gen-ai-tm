@@ -42,7 +42,9 @@ function ErrorComponent() {
                 </a>{' '}
                 if you have time, including the information below. Refresh the page to try again.
             </p>
-            <p className="code">{JSON.stringify(error)}</p>
+            <p className="code">
+                {error instanceof Error ? `${error.name}: ${error.message}` : JSON.stringify(error)}
+            </p>
         </section>
     );
 }

@@ -4,8 +4,15 @@ import { useVariant } from '../../util/variant';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import FileOpenIcon from '@mui/icons-material/FileOpen';
 import style from './AppBar.module.css';
-import { useAtomValue, useSetAtom } from 'jotai';
-import { feedbackAtom, loadState, menuShowSettings, saveState, showOpenDialog } from '../../state';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
+import {
+    feedbackAtom,
+    juniorModeAtom,
+    loadState,
+    menuShowSettings,
+    saveState,
+    showOpenDialog,
+} from '../../state';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { IconButton, Link as MUILink } from '@mui/material';
 import Suggestion from '../Suggestion/Suggestion';
@@ -39,7 +46,7 @@ export const LANGS = [
 
 export default function ApplicationBar({ showReminder, onSave }: Props) {
     const { namespace, showSettings, showSaveReminder } = useVariant();
-    const { t } = useTranslation(namespace);
+    const { t, i18n } = useTranslation(namespace);
     const saving = useAtomValue(saveState);
     const saveButtonRef = useRef(null);
     const [reminder, setReminder] = useState(true);
@@ -47,13 +54,14 @@ export default function ApplicationBar({ showReminder, onSave }: Props) {
     const isloading = useAtomValue(loadState);
     const setShowSettings = useSetAtom(menuShowSettings);
     const showFeedback = useAtomValue(feedbackAtom);
+    const [isJunior, setIsJunior] = useAtom(juniorModeAtom);
+    const isVi = i18n.language?.startsWith('vi');
 
     const openFile = useCallback(() => {
         setShowOpenDialog(true);
     }, [setShowOpenDialog]);
 
     const doSettings = useCallback(() => {
-        //navigate(`/settings?${createSearchParams(params)}`, { replace: false });
         setShowSettings(true);
     }, [setShowSettings]);
 
@@ -61,6 +69,10 @@ export default function ApplicationBar({ showReminder, onSave }: Props) {
         setReminder(false);
         onSave();
     }, [setReminder, onSave]);
+
+    const toggleJuniorMode = useCallback(() => {
+        setIsJunior((prev) => !prev);
+    }, [setIsJunior]);
 
     return (
         <nav className={style.appbar}>
@@ -108,6 +120,24 @@ export default function ApplicationBar({ showReminder, onSave }: Props) {
                     >
                         {t('app.save')}
                     </BusyButton>
+                    <button
+                        type="button"
+                        className={`${style.juniorToggleBtn} ${isJunior ? style.juniorToggleActive : ''}`}
+                        onClick={toggleJuniorMode}
+                        title={
+                            isVi
+                                ? 'Chuyển đổi giữa chế độ Tối giản và Đầy đủ'
+                                : 'Switch between Simplified and Standard mode'
+                        }
+                    >
+                        {isJunior
+                            ? isVi
+                                ? '🖥️ Đầy đủ'
+                                : '🖥️ Standard'
+                            : isVi
+                              ? '🎈 Tối giản'
+                              : '🎈 Simplified'}
+                    </button>
                 </div>
                 <div className={showSettings ? style.langBarWithSettings : style.langBar}>
                     {showFeedback && (

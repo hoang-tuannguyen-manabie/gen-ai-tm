@@ -7,14 +7,14 @@ import Workspace from '../../workflow/ImageWorkspace/Workspace';
 import { ThemeProvider } from '@mui/material/styles';
 import { useVariant } from '../../util/variant';
 import Fab from '@mui/material/Fab';
-import { theme } from '@genai-fi/base';
+import { theme } from '../../theme';
 import SettingsDialog from '../SettingsDialog/SettingsDialog';
 import MascotGuide from '../../components/MascotGuide/MascotGuide';
-import { useSetAtom } from 'jotai';
-import { feedbackAtom } from '@genaitm/state';
+import { useAtom, useSetAtom } from 'jotai';
+import { feedbackAtom, juniorModeAtom } from '@genaitm/state';
 
 export default function ImageClassifier() {
-    const { namespace, modelVariant } = useVariant();
+    const { namespace, modelVariant, juniorMode } = useVariant();
     const { t } = useTranslation(namespace);
     const [step, setStep] = useState(0);
     const [allowedStep, setAllowedStep] = useState(0);
@@ -24,6 +24,13 @@ export default function ImageClassifier() {
     const [tourRevealColumns, setTourRevealColumns] = useState(false);
     const lastVariantRef = useRef(modelVariant);
     const setFeedback = useSetAtom(feedbackAtom);
+    const [isJunior, setIsJunior] = useAtom(juniorModeAtom);
+
+    useEffect(() => {
+        if (juniorMode) {
+            setIsJunior(true);
+        }
+    }, [juniorMode, setIsJunior]);
 
     // Reset stepper to default state when model variant changes
     useEffect(() => {
@@ -76,26 +83,30 @@ export default function ImageClassifier() {
                 onSaveRemind={doSaveRemind}
             />
             <SettingsDialog />
-            <MascotGuide
-                mode="workspace"
-                onRevealColumns={setTourRevealColumns}
-            />
-            <nav
-                className={visited < 1 ? style.stepButton : style.stepButtonHidden}
-                aria-label={t('stepper.aria.step')}
-            >
-                <Fab
-                    variant="extended"
-                    color="secondary"
-                    disabled={allowedStep < 1}
-                    onClick={nextStep}
-                    aria-hidden={visited >= 1}
-                    data-testid="next-step"
+            {!isJunior && (
+                <MascotGuide
+                    mode="workspace"
+                    onRevealColumns={setTourRevealColumns}
+                />
+            )}
+            {!isJunior && (
+                <nav
+                    className={visited < 1 ? style.stepButton : style.stepButtonHidden}
+                    aria-label={t('stepper.aria.step')}
                 >
-                    {t('stepper.actions.next')}
-                    <ArrowForwardIosIcon />
-                </Fab>
-            </nav>
+                    <Fab
+                        variant="extended"
+                        color="secondary"
+                        disabled={allowedStep < 1}
+                        onClick={nextStep}
+                        aria-hidden={visited >= 1}
+                        data-testid="next-step"
+                    >
+                        {t('stepper.actions.next')}
+                        <ArrowForwardIosIcon />
+                    </Fab>
+                </nav>
+            )}
         </ThemeProvider>
     );
 }

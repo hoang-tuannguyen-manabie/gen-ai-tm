@@ -28,23 +28,25 @@ function delta(data: IVariantContext, template: VARIANTS): Partial<IVariantConte
 interface Props {
     id: string;
     usb?: boolean;
+    junior?: boolean;
     image?: string;
     icon?: ReactNode;
 }
 
-export default function Model({ id, usb, image, icon }: Props) {
+export default function Model({ id, usb, junior, image, icon }: Props) {
     const { t } = useTranslation('image_adv');
 
     const url = useMemo(() => {
+        const targetVariant: VARIANTS = junior ? 'junior' : 'general';
         const state: IVariantContext = {
             modelVariant: id as TMType,
             namespace: 'image_adv',
             allowSerialUSB: usb ? true : undefined,
         };
-        const str = JSON.stringify(delta(state, 'general'));
+        const str = JSON.stringify(delta(state, targetVariant));
         const urlCode = compressToEncodedURIComponent(str);
-        return str === '{}' ? `/${id}/general` : `/${id}/general?c=${urlCode}`;
-    }, [id, usb]);
+        return str === '{}' ? `/${id}/${targetVariant}` : `/${id}/${targetVariant}?c=${urlCode}`;
+    }, [id, usb, junior]);
 
     const modelLabel = t(`app.models.${id}`);
 

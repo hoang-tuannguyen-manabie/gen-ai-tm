@@ -17,10 +17,12 @@ import {
     predictedIndex,
     xaiEnabled,
     featureFlagsAtom,
+    juniorModeAtom,
 } from '../../state';
 import style from './TeachableMachine.module.css';
 import { useVariant } from '../../util/variant';
 import Input from '../Input/Input';
+import JuniorWorkspace from './JuniorWorkspace';
 import SaveDialog, { SaveProperties } from './SaveDialog';
 import { ModelSaver } from './saver';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
@@ -99,6 +101,7 @@ export default function Workspace({ step, visitedStep, onComplete, saveTrigger, 
     const orientation = useOrientation();
     const showSidebar = !!outlet;
     const heatmapEnabled = useAtomValue(xaiEnabled);
+    const isJunior = useAtomValue(juniorModeAtom);
     const lastVariantRef = useRef(modelVariant);
     const canShowTransferLearning = modelVariant === 'image' && allowTransferLearning;
     const connections = canShowTransferLearning ? CONNECTIONS : CONNECTIONS_NO_TL;
@@ -306,67 +309,80 @@ export default function Workspace({ step, visitedStep, onComplete, saveTrigger, 
             />
             <ModelSaver onSaved={doSaved} />
             <div className={style.workspaceContent}>
-                <WorkflowLayout
-                    connections={connections}
-                    ignoredColumns={visitedStep < 1 ? 2 : 0}
-                >
-                    <TrainingData
+                {isJunior ? (
+                    <JuniorWorkspace
                         data={data}
-                        setData={doSetData}
-                        active={true}
-                        onFocused={setEditingData}
-                        onLabelEdited={doLabelEdited}
+                        doSetData={doSetData}
+                        editingData={editingData}
+                        setEditingData={setEditingData}
+                        doLabelEdited={doLabelEdited}
+                        doTrained={doTrained}
+                        doShare={doShare}
+                        doClone={doClone}
                     />
-                    <Trainer
-                        focus={step === 0}
-                        editing={editingData}
-                        onTrained={doTrained}
-                    />
-                    <div
-                        className={style.column}
-                        data-widget="container"
+                ) : (
+                    <WorkflowLayout
+                        connections={connections}
+                        ignoredColumns={visitedStep < 1 ? 2 : 0}
                     >
-                        <Input />
-                        <Preview
-                            onExport={doShare}
-                            onClone={doClone}
+                        <TrainingData
+                            data={data}
+                            setData={doSetData}
+                            active={true}
+                            onFocused={setEditingData}
+                            onLabelEdited={doLabelEdited}
+                        />
+                        <Trainer
+                            focus={step === 0}
+                            editing={editingData}
+                            onTrained={doTrained}
                         />
                         <div
-                            className={style.previewActions}
-                            data-tour="xai-buttons"
+                            className={style.column}
+                            data-widget="container"
                         >
-                            <BoxButton
-                                label={'Statistics'}
-                                icon={<InsertChartOutlinedIcon />}
-                                widget={'statistics'}
-                                onClick={() => doSidebar('statistics')}
-                                style={{ width: 68, height: 68 }}
+                            <Input />
+                            <Preview
+                                onExport={doShare}
+                                onClone={doClone}
                             />
-                            <BoxButton
-                                label={'Heatmap'}
-                                icon={<LocalFireDepartmentIcon />}
-                                widget={'heatmap'}
-                                onClick={() => doSidebar('visualization')}
-                                style={{ width: 68, height: 68 }}
-                            />
-                            {canShowTransferLearning && (
+                            <div
+                                className={style.previewActions}
+                                data-tour="xai-buttons"
+                            >
                                 <BoxButton
-                                    label={'Transfer Learning'}
-                                    icon={<DeviceHubIcon />}
-                                    widget={'transferLearning'}
-                                    onClick={() => doSidebar('transferLearning')}
+                                    label={'Statistics'}
+                                    icon={<InsertChartOutlinedIcon />}
+                                    widget={'statistics'}
+                                    onClick={() => doSidebar('statistics')}
                                     style={{ width: 68, height: 68 }}
                                 />
-                            )}
+                                <BoxButton
+                                    label={'Heatmap'}
+                                    icon={<LocalFireDepartmentIcon />}
+                                    widget={'heatmap'}
+                                    onClick={() => doSidebar('visualization')}
+                                    style={{ width: 68, height: 68 }}
+                                />
+                                {canShowTransferLearning && (
+                                    <BoxButton
+                                        label={'Transfer Learning'}
+                                        icon={<DeviceHubIcon />}
+                                        widget={'transferLearning'}
+                                        onClick={() => doSidebar('transferLearning')}
+                                        style={{ width: 68, height: 68 }}
+                                    />
+                                )}
+                            </div>
                         </div>
-                    </div>
-                    <Behaviours
-                        hidden={visitedStep < 1}
-                        focus={step === 1}
-                        onChange={doBehaviourChange}
-                    />
-                    <Output hidden={visitedStep < 1} />
-                </WorkflowLayout>
+                        <Behaviours
+                            hidden={visitedStep < 1}
+                            focus={step === 1}
+                            onChange={doBehaviourChange}
+                        />
+                        <Output hidden={visitedStep < 1} />
+                    </WorkflowLayout>
+                )}
             </div>
 
             <SidePanel

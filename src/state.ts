@@ -181,6 +181,7 @@ export const modelStats = atom<ModelStats>({ labels: [] });
 export const poseDetected = atom<boolean | null>(null);
 export const underTheHoodOpen = atom<boolean>(false);
 export const feedbackAtom = atom<boolean>(false);
+export const juniorModeAtom = atom<boolean>(false);
 
 export interface INeuronActivationInfo {
     neuronId: number;
