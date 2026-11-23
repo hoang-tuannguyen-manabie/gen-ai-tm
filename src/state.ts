@@ -31,6 +31,12 @@ function applyFeatureOverridesFromUrl(features: FeatureFlags): FeatureFlags {
 
 export const featureFlagsAtom = atom(async () => {
     try {
+        if (!import.meta.env.VITE_APP_API) {
+            return applyFeatureOverridesFromUrl({
+                allowReportProblem: false,
+                allowTransferLearning: false,
+            });
+        }
         const isStagingEnv = !window.location.hostname.endsWith('gen-ai.fi');
         const response = await fetch(`${import.meta.env.VITE_APP_API}/features/${isStagingEnv ? 'tm-staging' : 'tm'}`);
         const data: { features: FeatureFlags } = await response.json();
@@ -134,6 +140,8 @@ export const sharingActive = atom<boolean>(false);
 export const shareModel = atom<boolean>(false);
 
 export const modelShared = atom<boolean>(false);
+
+export const shareModelError = atom<string | null>(null);
 
 export const p2pActive = atom<boolean>(false);
 

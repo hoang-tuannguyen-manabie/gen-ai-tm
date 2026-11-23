@@ -1,6 +1,14 @@
 import { useEffect } from 'react';
 import { BehaviourType } from '../Behaviour/Behaviour';
-import { behaviourState, classState, fileData, loadState, modelState, sessionCode } from '../../state';
+import {
+    behaviourState,
+    classLabelModifiedState,
+    classState,
+    fileData,
+    loadState,
+    modelState,
+    sessionCode,
+} from '../../state';
 import { useAtom, useSetAtom } from 'jotai';
 import { useSearchParams } from 'react-router';
 import ClassifierApp, { TeachableModel } from '@genai-fi/classifier';
@@ -32,20 +40,36 @@ interface Props {
 }
 
 function mapToURL(project: string) {
-    if (project.startsWith('http')) {
-        return project;
+    const clean = project.trim();
+    if (clean.startsWith('http')) {
+        return clean;
     }
-    if (project.length === 8 && /^[a-z0-9]+$/i.test(project)) {
-        return `${import.meta.env.VITE_APP_API}/model/${project}/project.zip`;
+    if (clean.length === 8 && /^[a-z0-9_-]+$/i.test(clean)) {
+        const apiBase = import.meta.env.VITE_APP_API || window.location.origin;
+        return `${apiBase}/model/${clean}/project.zip`;
     }
+}
+
+function buildClassesFromProject(project: Project) {
+    const labels = project.labels || [];
+    const samples = project.samples || [];
+    const count = Math.max(labels.length, samples.length);
+    return Array.from({ length: count }, (_, i) => ({
+        label: labels[i] || `Class ${i + 1}`,
+        samples: (samples[i] || []).map((sample, idx) => ({
+            ...sample,
+            id: sample.id || `${i}_${idx}_${Date.now()}`,
+        })),
+    }));
 }
 
 export function ModelLoader({ onLoaded, onError }: Props) {
     const [projectFile, setProjectFile] = useAtom(fileData);
-    const [params] = useSearchParams();
+    const [params, setParams] = useSearchParams();
     const setBehaviours = useSetAtom(behaviourState);
     const setCode = useSetAtom(sessionCode);
     const setData = useSetAtom(classState);
+    const setLabelModified = useSetAtom(classLabelModifiedState);
     const setLoading = useSetAtom(loadState);
     const setModel = useSetAtom(modelState);
 
@@ -55,71 +79,72 @@ export function ModelLoader({ onLoaded, onError }: Props) {
             if (project) {
                 setLoading(true);
                 const url = mapToURL(project);
-                if (!url) return;
+                if (!url) {
+                    setLoading(false);
+                    setParams({}, { replace: true });
+                    if (onError) onError(new Error('Invalid project code'));
+                    return;
+                }
 
                 fetch(url)
                     .then(async (result) => {
                         if (result.status !== 200) {
                             if (onError) onError(result);
                             setLoading(false);
+                            setParams({}, { replace: true });
                             return;
                         }
-                        const project = await loadProject(await result.blob());
+                        const loaded = await loadProject(await result.blob());
+                        const nextClasses = buildClassesFromProject(loaded);
 
-                        setData(
-                            project.samples
-                                ? project.samples.map((s, i) => ({ label: project.labels?.[i] || '', samples: s }))
-                                : []
-                        );
+                        setLabelModified(nextClasses.map(() => true));
+                        setData(nextClasses);
 
-                        if (project.model) {
-                            setModel(project.model);
+                        if (loaded.model) {
+                            setModel(loaded.model);
                         }
-                        if (project.behaviours) {
-                            setBehaviours(project.behaviours);
+                        if (loaded.behaviours) {
+                            setBehaviours(loaded.behaviours);
                         }
 
                         setLoading(false);
+                        setParams({}, { replace: true });
                         if (onLoaded) {
-                            onLoaded(!!project.behaviours);
+                            onLoaded(!!loaded.behaviours);
                         }
                     })
                     .catch((e) => {
                         if (onError) onError(e);
                         setLoading(false);
+                        setParams({}, { replace: true });
                     });
             }
         }
-    }, [params, onLoaded, setData, setBehaviours, onError, setLoading]);
+    }, [params, setParams, onLoaded, setData, setLabelModified, setBehaviours, setModel, onError, setLoading]);
 
     useEffect(() => {
         if (projectFile) {
             setLoading(true);
             loadProject(projectFile)
-                .then((project) => {
-                    if (project.id) setCode(project.id);
+                .then((loaded) => {
+                    if (loaded.id) setCode(loaded.id);
+                    const nextClasses = buildClassesFromProject(loaded);
 
-                    setData(
-                        project.samples
-                            ? project.samples.map((s, i) => ({ label: project.labels?.[i] || '', samples: s }))
-                            : []
-                    );
+                    setLabelModified(nextClasses.map(() => true));
+                    setData(nextClasses);
 
-                    if (project.model) {
-                        setModel(project.model);
+                    if (loaded.model) {
+                        setModel(loaded.model);
                     }
-                    if (project.behaviours) {
-                        setBehaviours(project.behaviours);
+                    if (loaded.behaviours) {
+                        setBehaviours(loaded.behaviours);
                     }
 
                     setLoading(false);
                     if (onLoaded) {
-                        onLoaded(!!project.behaviours);
+                        onLoaded(!!loaded.behaviours);
                     }
 
-                    /*if (project.behaviours && !resetOnLoad) {
-                        onSkip(1);
-                    }*/
                     setProjectFile(null);
                 })
                 .catch((e) => {
@@ -128,7 +153,18 @@ export function ModelLoader({ onLoaded, onError }: Props) {
                     setLoading(false);
                 });
         }
-    }, [projectFile, setProjectFile, onLoaded, setData, setCode, setBehaviours, onError, setLoading]);
+    }, [
+        projectFile,
+        setProjectFile,
+        onLoaded,
+        setData,
+        setLabelModified,
+        setCode,
+        setBehaviours,
+        setModel,
+        onError,
+        setLoading,
+    ]);
 
     return null;
 }

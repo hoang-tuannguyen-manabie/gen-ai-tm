@@ -50,7 +50,8 @@ export default function ExportDialog({ open, onClose, ready }: Props) {
     const [shared, setShared] = useAtom(shareModel);
     const sharedModel = useAtomValue(modelShared);
 
-    const link = `${import.meta.env.VITE_APP_API}/model/${code}/`;
+    const apiBase = import.meta.env.VITE_APP_API || window.location.origin;
+    const link = `${apiBase}/model/${code}/`;
 
     useEffect(() => {
         if (open) {

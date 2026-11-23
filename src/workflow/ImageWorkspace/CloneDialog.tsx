@@ -7,8 +7,8 @@ import { Button } from '@genaitm/components/button/Button';
 import { useVariant } from '../../util/variant';
 import { useTranslation } from 'react-i18next';
 import { useAtom, useAtomValue } from 'jotai';
-import { modelShared, sessionCode, shareModel, shareSamples } from '@genaitm/state';
-import { CircularProgress, IconButton } from '@mui/material';
+import { modelShared, sessionCode, shareModel, shareModelError, shareSamples } from '@genaitm/state';
+import { Alert, CircularProgress, IconButton } from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -31,13 +31,16 @@ export default function CloneDialog({ open, onClose, ready }: Props) {
     const code = useAtomValue(sessionCode);
     const [samples, setShareSamples] = useAtom(shareSamples);
     const { namespace } = useVariant();
-    const { t } = useTranslation(namespace);
+    const { t, i18n } = useTranslation(namespace);
+    const isVi = i18n.language?.startsWith('vi');
     const textRef = useRef<HTMLInputElement>(null);
     const [shared, setShared] = useAtom(shareModel);
     const sharedModel = useAtomValue(modelShared);
+    const [shareError, setShareError] = useAtom(shareModelError);
 
     useEffect(() => {
         if (open) {
+            setShareError(null);
             setTimeout(() => {
                 if (textRef.current) {
                     textRef.current.focus();
@@ -45,7 +48,7 @@ export default function CloneDialog({ open, onClose, ready }: Props) {
                 }
             }, 200);
         }
-    }, [open]);
+    }, [open, setShareError]);
 
     const doCopyCode = useCallback(() => {
         navigator.clipboard.writeText(code);
@@ -85,6 +88,26 @@ export default function CloneDialog({ open, onClose, ready }: Props) {
                             label={t('share.labels.includeSamples')}
                         />
                     </div>
+                    {shared && sharedModel && (
+                        <Alert
+                            severity="success"
+                            sx={{ marginTop: '0.75rem' }}
+                        >
+                            {isVi
+                                ? 'Đã chia sẻ thành công! Người khác có thể bấm "Mở" và nhập mã trên để tải bản sao.'
+                                : 'Shared successfully! Others can click "Open" and enter the code above.'}
+                        </Alert>
+                    )}
+                    {shareError && (
+                        <Alert
+                            severity="error"
+                            sx={{ marginTop: '0.75rem' }}
+                        >
+                            {isVi
+                                ? 'Không thể chia sẻ bản sao lúc này. Vui lòng thử lại.'
+                                : 'Could not share copy right now. Please try again.'}
+                        </Alert>
+                    )}
                 </DialogContent>
             )}
             {!ready && (
@@ -96,7 +119,10 @@ export default function CloneDialog({ open, onClose, ready }: Props) {
                 <BusyButton
                     busy={!ready || (shared && !sharedModel)}
                     variant="contained"
-                    onClick={() => setShared((old) => !old)}
+                    onClick={() => {
+                        setShareError(null);
+                        setShared((old) => !old);
+                    }}
                     data-testid="share-share"
                 >
                     {sharedModel && shared ? t('share.actions.stopShare') : t('share.actions.share')}

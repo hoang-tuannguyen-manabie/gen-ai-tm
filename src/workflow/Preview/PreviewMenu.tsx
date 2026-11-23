@@ -91,16 +91,15 @@ export default function PreviewMenu({ disabled, onExport, onClone }: Props) {
                             setShared(true);
                             // Allow some time for the sharing state to propagate before opening the new window
                             // This should be done properly.
-                            setTimeout(
-                                () =>
-                                    window.open(
-                                        `https://spoof.gen-ai.fi/teacher/?origin=remote&model=${encodeURIComponent(
-                                            `${import.meta.env.VITE_APP_API}/model/${code}/project.zip`
-                                        )}&view=connect&overlay=share`,
-                                        '_blank'
-                                    ),
-                                500
-                            );
+                            setTimeout(() => {
+                                const apiBase = import.meta.env.VITE_APP_API || window.location.origin;
+                                window.open(
+                                    `https://spoof.gen-ai.fi/teacher/?origin=remote&model=${encodeURIComponent(
+                                        `${apiBase}/model/${code}/project.zip`
+                                    )}&view=connect&overlay=share`,
+                                    '_blank'
+                                );
+                            }, 500);
                         }}
                     >
                         <ListItemIcon>

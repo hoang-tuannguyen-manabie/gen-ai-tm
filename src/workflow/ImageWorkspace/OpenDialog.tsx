@@ -21,21 +21,28 @@ export default function OpenDialog() {
     const [, setParams] = useSearchParams();
     const [codeValue, setCodeValue] = useState<string>('');
 
+    const trimmedCode = codeValue.trim();
+
     const doKeyCheck = useCallback(
         (e: React.KeyboardEvent<HTMLInputElement>) => {
             if (e.key === 'Enter') {
                 const target = e.target as HTMLInputElement;
-                setParams({ project: target.value });
-                setShowOpenDialog(false);
+                const val = target.value.trim();
+                if (val.length >= 8) {
+                    setParams({ project: val });
+                    setShowOpenDialog(false);
+                }
             }
         },
         [setShowOpenDialog, setParams]
     );
 
     const doOpenCode = useCallback(() => {
-        setParams({ project: codeValue });
-        setShowOpenDialog(false);
-    }, [setParams, setShowOpenDialog, codeValue]);
+        if (trimmedCode.length >= 8) {
+            setParams({ project: trimmedCode });
+            setShowOpenDialog(false);
+        }
+    }, [setParams, setShowOpenDialog, trimmedCode]);
 
     const doChangeCode = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setCodeValue(e.currentTarget.value);
@@ -81,14 +88,14 @@ export default function OpenDialog() {
                             value={codeValue}
                             onChange={doChangeCode}
                             spellCheck={false}
-                            color={codeValue.length === 8 ? 'success' : codeValue.length > 0 ? 'error' : 'primary'}
+                            color={trimmedCode.length === 8 ? 'success' : trimmedCode.length > 0 ? 'error' : 'primary'}
                         />
                     </div>
                     <Button
                         variant="contained"
                         onClick={doOpenCode}
                         fullWidth
-                        disabled={codeValue.length < 8}
+                        disabled={trimmedCode.length < 8}
                     >
                         {t('load.actions.openCode')}
                     </Button>
