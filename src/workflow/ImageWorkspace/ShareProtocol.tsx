@@ -1,5 +1,6 @@
 import ClassifierApp, { TeachableModel } from '@genai-fi/classifier';
 import { useCallback, useEffect, useRef } from 'react';
+import Peer from 'peerjs';
 import { BehaviourType } from '../Behaviour/Behaviour';
 import {
     behaviourState,
@@ -37,10 +38,61 @@ function limitSharedSamples(samples?: IClassification[]) {
     });
 }
 
+function startPeerShare(code: string, zipBlob: Blob, peerRef: { current: Peer | null }): Promise<boolean> {
+    return new Promise((resolve) => {
+        if (typeof window === 'undefined' || import.meta.env.VITE_APP_API) {
+            resolve(false);
+            return;
+        }
+        try {
+            if (peerRef.current) {
+                peerRef.current.destroy();
+                peerRef.current = null;
+            }
+            const peer = new Peer(`tm-share-${code}`, {
+                host: '0.peerjs.com',
+                port: 443,
+                secure: true,
+            });
+            peerRef.current = peer;
+
+            const timer = setTimeout(() => resolve(false), 6000);
+
+            peer.on('open', () => {
+                clearTimeout(timer);
+                resolve(true);
+            });
+
+            peer.on('connection', (conn) => {
+                const sendZip = async () => {
+                    const buf = await zipBlob.arrayBuffer();
+                    conn.send({ type: 'project-zip', data: buf });
+                };
+                conn.on('open', () => {
+                    sendZip().catch(() => {});
+                });
+                conn.on('data', (msg: unknown) => {
+                    if (msg && typeof msg === 'object' && (msg as { type?: string }).type === 'request-zip') {
+                        sendZip().catch(() => {});
+                    }
+                });
+            });
+
+            peer.on('error', () => {
+                clearTimeout(timer);
+                resolve(false);
+            });
+        } catch {
+            resolve(false);
+        }
+    });
+}
+
 async function sendModel(
     code: string,
     model: TeachableModel,
     behaviours: BehaviourType[],
+    peerRef: { current: Peer | null },
     samples?: IClassification[]
 ) {
     const app = new ClassifierApp(
@@ -52,12 +104,28 @@ async function sendModel(
     app.projectId = code;
     const blob = await app.saveComponents();
     if (!blob.zip) return;
-    const response = await fetch(`${getApiBase()}/model/${code}/`, {
-        method: 'POST',
-        body: blob.zip,
-    });
-    if (!response.ok) {
-        throw new Error(`Failed to upload model: ${response.statusText || response.status}`);
+
+    const peerPromise = startPeerShare(code, blob.zip, peerRef);
+
+    let httpOk = false;
+    try {
+        const response = await fetch(`${getApiBase()}/model/${code}/`, {
+            method: 'POST',
+            body: blob.zip,
+        });
+        const contentType = response.headers?.get?.('content-type') || '';
+        httpOk = response.ok && !contentType.includes('text/html');
+    } catch {
+        httpOk = false;
+    }
+
+    if (httpOk) {
+        return;
+    }
+
+    const peerOk = await peerPromise;
+    if (!peerOk) {
+        throw new Error('Failed to upload model');
     }
 }
 
@@ -68,6 +136,7 @@ export default function ShareProtocol() {
     const { model } = useTeachableModel();
     const behaviours = useAtomValue(behaviourState);
     const cache = useRef<CacheState>({ model, behaviours, code });
+    const peerRef = useRef<Peer | null>(null);
     const [share, setShare] = useAtom(shareModel);
     const setModelShared = useSetAtom(modelShared);
     const setShareError = useSetAtom(shareModelError);
@@ -86,7 +155,7 @@ export default function ShareProtocol() {
         if (model) {
             setModelShared(false);
             setShareError(null);
-            sendModel(code, model, behaviours, classes)
+            sendModel(code, model, behaviours, peerRef, classes)
                 .then(() => {
                     setModelShared(true);
                 })
@@ -105,14 +174,16 @@ export default function ShareProtocol() {
             send();
             return () => clearInterval(timer);
         } else if (!share && model) {
+            if (peerRef.current) {
+                peerRef.current.destroy();
+                peerRef.current = null;
+            }
             setModelShared((wasShared) => {
                 if (wasShared) {
                     fetch(`${getApiBase()}/model/${cache.current.code}/`, {
                         method: 'DELETE',
                     }).catch((err) => {
-                        // Silently handle connection errors when collaboration server isn't running
                         if (err instanceof TypeError && err.message?.includes('Failed to fetch')) {
-                            // Collaboration server not available - this is expected when not using P2P features
                             console.debug('Collaboration server not available');
                         } else {
                             console.error('Failed to unshare model', err);
@@ -123,6 +194,15 @@ export default function ShareProtocol() {
             });
         }
     }, [share, includeSamples, model, send, setModelShared]);
+
+    useEffect(() => {
+        return () => {
+            if (peerRef.current) {
+                peerRef.current.destroy();
+                peerRef.current = null;
+            }
+        };
+    }, []);
 
     return null;
 }

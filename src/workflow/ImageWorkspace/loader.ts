@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import Peer from 'peerjs';
 import { BehaviourType } from '../Behaviour/Behaviour';
 import {
     behaviourState,
@@ -50,6 +51,68 @@ function mapToURL(project: string) {
     }
 }
 
+function fetchProjectViaPeer(code: string): Promise<Blob> {
+    return new Promise((resolve, reject) => {
+        const peer = new Peer({
+            host: '0.peerjs.com',
+            port: 443,
+            secure: true,
+        });
+        const timeout = setTimeout(() => {
+            peer.destroy();
+            reject(new Error('Peer connection timeout'));
+        }, 12000);
+
+        peer.on('open', () => {
+            const conn = peer.connect(`tm-share-${code.trim()}`, { reliable: true });
+            conn.on('open', () => {
+                conn.send({ type: 'request-zip' });
+            });
+            conn.on('data', (msg: unknown) => {
+                if (
+                    msg &&
+                    typeof msg === 'object' &&
+                    (msg as { type?: string; data?: ArrayBuffer }).type === 'project-zip'
+                ) {
+                    const raw = (msg as { data: ArrayBuffer }).data;
+                    clearTimeout(timeout);
+                    setTimeout(() => peer.destroy(), 300);
+                    resolve(new Blob([raw], { type: 'application/zip' }));
+                }
+            });
+            conn.on('error', (err) => {
+                clearTimeout(timeout);
+                peer.destroy();
+                reject(err);
+            });
+        });
+
+        peer.on('error', (err) => {
+            clearTimeout(timeout);
+            peer.destroy();
+            reject(err);
+        });
+    });
+}
+
+async function fetchSharedProjectBlob(project: string, url: string): Promise<Blob> {
+    try {
+        const result = await fetch(url);
+        const contentType = result.headers?.get?.('content-type') || '';
+        if (result.status === 200 && !contentType.includes('text/html')) {
+            return await result.blob();
+        }
+    } catch {
+        // Fallback to PeerJS below
+    }
+
+    const clean = project.trim();
+    if (clean.length === 8 && /^[a-z0-9_-]+$/i.test(clean)) {
+        return await fetchProjectViaPeer(clean);
+    }
+    throw new Error('Could not load model');
+}
+
 function buildClassesFromProject(project: Project) {
     const labels = project.labels || [];
     const samples = project.samples || [];
@@ -86,15 +149,9 @@ export function ModelLoader({ onLoaded, onError }: Props) {
                     return;
                 }
 
-                fetch(url)
-                    .then(async (result) => {
-                        if (result.status !== 200) {
-                            if (onError) onError(result);
-                            setLoading(false);
-                            setParams({}, { replace: true });
-                            return;
-                        }
-                        const loaded = await loadProject(await result.blob());
+                fetchSharedProjectBlob(project, url)
+                    .then(async (blob) => {
+                        const loaded = await loadProject(blob);
                         const nextClasses = buildClassesFromProject(loaded);
 
                         setLabelModified(nextClasses.map(() => true));
